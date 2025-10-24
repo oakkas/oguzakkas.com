@@ -25,7 +25,7 @@ export const ArrowUpRightIcon: React.FC = () => (
 );
 
 export const DataPipelineIcon: React.FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 80 48" strokeWidth="1.5" className="w-48 h-28 text-sky-300" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 80 48" strokeWidth="1.5" className="w-48 h-28 text-sky-500 dark:text-sky-300" aria-hidden="true">
       <style>{`
         .data-dot {
           animation: data-flow 3s linear infinite;
@@ -39,16 +39,16 @@ export const DataPipelineIcon: React.FC = () => (
         }
       `}</style>
       {/* Database/source icon parts */}
-      <path stroke="currentColor" className="text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M20 18h-12c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2z" />
-      <path stroke="currentColor" className="text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M6 20v8" />
-      <path stroke="currentColor" className="text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M14 18v12" />
-      <path stroke="currentColor" className="text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M22 20v8" />
+      <path stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M20 18h-12c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2z" />
+      <path stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M6 20v8" />
+      <path stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M14 18v12" />
+      <path stroke="currentColor" className="text-slate-400 dark:text-slate-500" strokeLinecap="round" strokeLinejoin="round" d="M22 20v8" />
       
       {/* Pipeline path */}
-      <path d="M24 24 H 64" strokeDasharray="4 2" stroke="currentColor" className="text-slate-600" />
+      <path d="M24 24 H 64" strokeDasharray="4 2" stroke="currentColor" className="text-slate-500 dark:text-slate-600" />
       
       {/* Server/destination icon */}
-      <rect x="64" y="16" width="8" height="16" rx="1" stroke="currentColor" className="text-slate-500" />
+      <rect x="64" y="16" width="8" height="16" rx="1" stroke="currentColor" className="text-slate-400 dark:text-slate-500" />
       
       {/* Animated data dots */}
       <circle r="2.5" className="data-dot" style={{ animationDelay: '0s' }} />
@@ -59,7 +59,7 @@ export const DataPipelineIcon: React.FC = () => (
 );
 
 export const MLOpsIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" className="w-28 h-28 text-sky-300" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" className="w-28 h-28 text-sky-500 dark:text-sky-300" aria-hidden="true">
     <style>{`
       .ml-dot {
         fill: currentColor;
@@ -67,49 +67,75 @@ export const MLOpsIcon: React.FC = () => (
         animation: ml-cycle 6s linear infinite;
         offset-path: path('M32,8 A24,24 0 1,1 31.99,8');
       }
-      .ml-icon-group:nth-child(2) .ml-icon-bg { animation: icon-pulse 6s linear infinite 0s; }
-      .ml-icon-group:nth-child(3) .ml-icon-bg { animation: icon-pulse 6s linear infinite -1.5s; }
-      .ml-icon-group:nth-child(4) .ml-icon-bg { animation: icon-pulse 6s linear infinite -3s; }
-      .ml-icon-group:nth-child(5) .ml-icon-bg { animation: icon-pulse 6s linear infinite -4.5s; }
+      .ml-icon-group:nth-child(2) .ml-icon-bg { animation: icon-pulse-dark 6s linear infinite 0s; }
+      .ml-icon-group:nth-child(3) .ml-icon-bg { animation: icon-pulse-dark 6s linear infinite -1.5s; }
+      .ml-icon-group:nth-child(4) .ml-icon-bg { animation: icon-pulse-dark 6s linear infinite -3s; }
+      .ml-icon-group:nth-child(5) .ml-icon-bg { animation: icon-pulse-dark 6s linear infinite -4.5s; }
+
+      .dark .ml-icon-group:nth-child(2) .ml-icon-bg { animation-name: icon-pulse-dark; }
+      .dark .ml-icon-group:nth-child(3) .ml-icon-bg { animation-name: icon-pulse-dark; }
+      .dark .ml-icon-group:nth-child(4) .ml-icon-bg { animation-name: icon-pulse-dark; }
+      .dark .ml-icon-group:nth-child(5) .ml-icon-bg { animation-name: icon-pulse-dark; }
+      
+      html:not(.dark) .ml-icon-group:nth-child(2) .ml-icon-bg { animation: icon-pulse-light 6s linear infinite 0s; }
+      html:not(.dark) .ml-icon-group:nth-child(3) .ml-icon-bg { animation: icon-pulse-light 6s linear infinite -1.5s; }
+      html:not(.dark) .ml-icon-group:nth-child(4) .ml-icon-bg { animation: icon-pulse-light 6s linear infinite -3s; }
+      html:not(.dark) .ml-icon-group:nth-child(5) .ml-icon-bg { animation: icon-pulse-light 6s linear infinite -4.5s; }
+
 
       @keyframes ml-cycle {
         from { offset-distance: 0%; }
         to { offset-distance: 100%; }
       }
 
-      @keyframes icon-pulse {
-        0%, 100% { fill: #1E293B; } /* slate-800 */
-        10%, 40% { fill: #1E293B; }
+      @keyframes icon-pulse-dark {
+        0%, 100%, 10%, 40% { fill: #1E293B; } /* slate-800 */
+        25% { fill: #0ea5e9; } /* sky-500 */
+      }
+      @keyframes icon-pulse-light {
+        0%, 100%, 10%, 40% { fill: #f1f5f9; } /* slate-100 */
         25% { fill: #0ea5e9; } /* sky-500 */
       }
     `}</style>
     {/* Circular path */}
-    <circle cx="32" cy="32" r="24" stroke="currentColor" strokeDasharray="5 3" className="text-slate-600" strokeWidth="1.5"/>
+    <circle cx="32" cy="32" r="24" stroke="currentColor" strokeDasharray="5 3" className="text-slate-500 dark:text-slate-600" strokeWidth="1.5"/>
 
     {/* Icons on the circle */}
     {/* Train (top) */}
     <g transform="translate(24, 2)" className="ml-icon-group">
-      <circle cx="8" cy="6" r="8" className="ml-icon-bg" fill="#1E293B" />
+      <circle cx="8" cy="6" r="8" className="ml-icon-bg fill-slate-100 dark:fill-slate-800" />
       <path d="M10.5 7.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" stroke="currentColor" strokeWidth="1.5" />
       <path d="M8 5V3m0 10v-2m-5-3H1m10 0h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </g>
     {/* Deploy (right) */}
     <g transform="translate(50, 24)" className="ml-icon-group">
-      <circle cx="8" cy="8" r="8" className="ml-icon-bg" fill="#1E293B" />
+      <circle cx="8" cy="8" r="8" className="ml-icon-bg fill-slate-100 dark:fill-slate-800" />
       <path d="M4.5 11.5l7-7m-7 0h7v7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
     {/* Monitor (bottom) */}
     <g transform="translate(24, 50)" className="ml-icon-group">
-      <circle cx="8" cy="8" r="8" className="ml-icon-bg" fill="#1E293B" />
+      <circle cx="8" cy="8" r="8" className="ml-icon-bg fill-slate-100 dark:fill-slate-800" />
       <path d="M4 12h2v-4h2v4h2v-6h2v6h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </g>
     {/* Data/Code (left) */}
     <g transform="translate(2, 24)" className="ml-icon-group">
-      <circle cx="8" cy="8" r="8" className="ml-icon-bg" fill="#1E293B" />
+      <circle cx="8" cy="8" r="8" className="ml-icon-bg fill-slate-100 dark:fill-slate-800" />
       <path d="M7 5l-4 4 4 4m6-8l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </g>
 
     {/* Animated dot */}
     <circle r="3" className="ml-dot" />
   </svg>
+);
+
+export const SunIcon: React.FC = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+    </svg>
+);
+
+export const MoonIcon: React.FC = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+    </svg>
 );
