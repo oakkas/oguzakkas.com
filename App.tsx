@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
+import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
@@ -31,13 +32,14 @@ const App: React.FC = () => {
         }}
       ></div>
       <Header />
-      <main className="container mx-auto max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
-        <div className="lg:flex lg:justify-between lg:gap-4">
-          <div className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
+      <main className="container mx-auto max-w-screen-2xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-12 lg:py-0">
+        <div className="lg:grid lg:grid-cols-4 lg:gap-12">
+          <div className="lg:sticky lg:top-0 lg:col-span-1 lg:flex lg:max-h-screen lg:flex-col lg:justify-between lg:py-24">
             <Hero />
           </div>
-          <div className="pt-24 lg:w-1/2 lg:py-24">
+          <div className="pt-24 lg:col-span-3 lg:py-24">
             <About />
+            <Skills />
             <OpsComparison />
             <Experience />
             <Projects />
