@@ -25,38 +25,38 @@ const OpsComparison: React.FC = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Data Ops Column */}
-        <div className="p-6 rounded-lg bg-slate-800/50 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] drop-shadow-lg">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="p-8 rounded-lg bg-slate-800/50 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] drop-shadow-lg">
+          <div className="flex justify-center mb-8">
             <DataPipelineIcon />
-            <h3 className="text-xl font-bold text-white">Data Ops</h3>
           </div>
-          <p className="text-slate-400 mb-4 text-sm">
+          <h3 className="text-2xl font-bold text-white text-center mb-4">Data Ops</h3>
+          <p className="text-slate-400 mb-6 text-base text-center">
             Focuses on automating and managing the entire data lifecycle, from source to value, to deliver reliable data to the business faster.
           </p>
           <ul className="space-y-2">
             {dataOpsPrinciples.map(principle => (
               <li key={principle} className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-sky-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-                <span className="text-sm">{principle}</span>
+                <span className="text-base">{principle}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* ML Ops Column */}
-        <div className="p-6 rounded-lg bg-slate-800/50 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] drop-shadow-lg">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="p-8 rounded-lg bg-slate-800/50 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] drop-shadow-lg">
+          <div className="flex justify-center mb-8">
             <MLOpsIcon />
-            <h3 className="text-xl font-bold text-white">ML Ops</h3>
           </div>
-          <p className="text-slate-400 mb-4 text-sm">
+          <h3 className="text-2xl font-bold text-white text-center mb-4">ML Ops</h3>
+          <p className="text-slate-400 mb-6 text-base text-center">
             Applies DevOps principles to machine learning systems, aiming to unify ML development with operations to standardize and streamline the continuous delivery of high-performing models.
           </p>
           <ul className="space-y-2">
             {mlOpsPrinciples.map(principle => (
               <li key={principle} className="flex items-center gap-2">
                  <svg className="w-4 h-4 text-sky-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-                <span className="text-sm">{principle}</span>
+                <span className="text-base">{principle}</span>
               </li>
             ))}
           </ul>

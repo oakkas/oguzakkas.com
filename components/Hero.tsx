@@ -5,13 +5,13 @@ const Hero: React.FC = () => {
   return (
     <div className="flex flex-col h-full justify-between">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+        <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl">
           Oguz Akkas
         </h1>
-        <h2 className="mt-3 text-lg font-medium tracking-tight text-white sm:text-xl">
+        <h2 className="mt-4 text-xl font-medium tracking-tight text-white sm:text-2xl">
           ML & Data Engineer
         </h2>
-        <p className="mt-4 max-w-xs leading-normal text-slate-400">
+        <p className="mt-6 max-w-sm text-lg leading-relaxed text-slate-400">
           I design and deploy scalable machine learning models and data pipelines, with expertise in NLP and distributed processing.
         </p>
         <nav className="hidden lg:block mt-16" aria-label="In-page jump links">
@@ -38,12 +38,6 @@ const Hero: React.FC = () => {
               <a className="group flex items-center py-3" href="#projects">
                 <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"></span>
                 <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200 group-focus-visible:text-slate-200">Projects</span>
-              </a>
-            </li>
-            <li>
-              <a className="group flex items-center py-3" href="#video-generator">
-                <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"></span>
-                <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200 group-focus-visible:text-slate-200">Video Gen</span>
               </a>
             </li>
           </ul>

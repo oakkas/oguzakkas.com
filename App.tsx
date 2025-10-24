@@ -6,7 +6,6 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import OpsComparison from './components/OpsComparison';
-import VideoGenerator from './components/VideoGenerator';
 
 const App: React.FC = () => {
   return (
@@ -22,7 +21,6 @@ const App: React.FC = () => {
             <OpsComparison />
             <Experience />
             <Projects />
-            <VideoGenerator />
             <Contact />
           </div>
         </div>

@@ -7,13 +7,13 @@ const About: React.FC = () => {
         <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">About</h2>
       </div>
       <div>
-        <p className="mb-4">
+        <p className="mb-6 text-lg leading-relaxed text-slate-400">
           As an experienced ML & Data Engineer, I have a proven record of designing and deploying machine learning models and feature engineering pipelines for production environments. My expertise spans Natural Language Processing (NLP), distributed data processing with Spark, and comprehensive model lifecycle management using MLFlow.
         </p>
-        <p className="mb-4">
+        <p className="mb-6 text-lg leading-relaxed text-slate-400">
           I hold advanced degrees in Industrial Engineering from the University of Wisconsin-Madison and have a track record of delivering scalable, real-time AI solutions across diverse sectors. I thrive on architecting robust systems and leading teams to turn complex technical challenges into impactful products.
         </p>
-        <p>
+        <p className="text-lg leading-relaxed text-slate-400">
           Throughout my career, I've worked with a wide array of tools and technologies, from foundational deep learning frameworks like TensorFlow and PyTorch to modern LLMs from OpenAI, Google, and Anthropic. I'm adept at cloud computing in both AWS and GCP, and I leverage infrastructure-as-code tools like Terraform to build efficient and reproducible environments.
         </p>
       </div>
