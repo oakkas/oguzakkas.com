@@ -24,11 +24,14 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 font-sans leading-relaxed selection:bg-sky-300 selection:text-sky-900">
-      <div 
-        className="pointer-events-none fixed inset-0 z-30 transition duration-300 lg:absolute"
+    <div className="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 font-sans leading-relaxed selection:bg-sky-300 selection:text-sky-900 relative">
+      <div
+        className="fixed inset-0 z-0 opacity-20 dark:opacity-10 pointer-events-none"
         style={{
-          background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(29, 78, 216, 0.15), transparent 80%)`
+          backgroundImage: 'url(/assets/background.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       ></div>
       <Header />

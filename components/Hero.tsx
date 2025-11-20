@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GitHubIcon, LinkedInIcon, EmailIcon } from './Icons';
 import ThemeToggle from './ThemeToggle';
+import { motion } from 'framer-motion';
 
 const navLinks = [
   { id: 'about', name: 'About' },
@@ -32,14 +33,28 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const subtitle = "ML & Data Engineer";
+
   return (
     <div className="flex flex-col h-full justify-between">
       <div>
         <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
           Oguz Akkas
         </h1>
-        <h2 className="mt-4 text-xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-2xl">
-          ML & Data Engineer
+        <h2 className="mt-4 text-xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-2xl h-8">
+          {subtitle.split("").map((char, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.1,
+                delay: index * 0.05,
+              }}
+            >
+              {char}
+            </motion.span>
+          ))}
         </h2>
         <p className="mt-6 max-w-sm text-lg leading-relaxed text-slate-600 dark:text-slate-400">
           I design and deploy scalable machine learning models and data pipelines, with expertise in NLP and distributed processing.

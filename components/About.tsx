@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const About: React.FC = () => {
   return (
@@ -7,6 +8,25 @@ const About: React.FC = () => {
         <h2 className="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-200 lg:sr-only">About</h2>
       </div>
       <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-8 flex justify-center"
+        >
+          <motion.img
+            src="/assets/ai_engineer_transparent.png"
+            alt="AI Engineer Illustration"
+            className="h-96 w-auto rounded-lg object-contain opacity-90 hover:opacity-100 transition-opacity duration-300 mix-blend-multiply dark:mix-blend-normal"
+            animate={{ y: [0, -15, 0] }}
+            transition={{
+              repeat: Infinity,
+              duration: 4,
+              ease: "easeInOut"
+            }}
+          />
+        </motion.div>
         <p className="mb-6 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
           As an experienced ML & Data Engineer, I have a proven record of designing and deploying machine learning models and feature engineering pipelines for production environments. My expertise spans Natural Language Processing (NLP), distributed data processing with Spark, and comprehensive model lifecycle management using MLFlow.
         </p>
