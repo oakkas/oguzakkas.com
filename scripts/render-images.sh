@@ -1,6 +1,7 @@
 #!/bin/sh
 # Renders the site's generated images with headless Chrome:
 #   scripts/demo-samples/*.html -> public/demo/*.webp  (synthetic demo documents)
+#                                  public/demo/thumbs/*.webp (400px-wide previews)
 #   scripts/og-image.html       -> public/og-image.png (link preview image)
 # Needs Google Chrome and cwebp (brew install webp).
 set -e
@@ -8,7 +9,7 @@ set -e
 cd "$(dirname "$0")/.."
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 TMP="$(mktemp -d)"
-mkdir -p public/demo
+mkdir -p public/demo/thumbs
 
 shot() { # html, width, height, png
   "$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
@@ -20,6 +21,7 @@ for html in scripts/demo-samples/*.html; do
   name="$(basename "$html" .html)"
   shot "$html" 1000 1294 "$TMP/$name.png"
   cwebp -quiet -q 82 "$TMP/$name.png" -o "public/demo/$name.webp"
+  cwebp -quiet -q 80 -resize 400 0 "$TMP/$name.png" -o "public/demo/thumbs/$name.webp"
   echo "public/demo/$name.webp"
 done
 

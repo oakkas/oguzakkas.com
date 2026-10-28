@@ -9,6 +9,7 @@ export type DemoSample = {
   title: string;
   description: string;
   image: string;
+  thumbnail: string;
   alt: string;
   task: DemoTask;
 };
@@ -35,6 +36,7 @@ export const demoSamples: DemoSample[] = [
     title: 'Typed lab report',
     description: 'A clean, computer-generated report with metabolic, lipid, and A1c results.',
     image: '/demo/lab-report-typed.webp',
+    thumbnail: '/demo/thumbs/lab-report-typed.webp',
     alt: 'Synthetic typed laboratory report for a fictional patient, Jane Sample, listing eleven test results',
     task: 'lab',
   },
@@ -43,6 +45,7 @@ export const demoSamples: DemoSample[] = [
     title: 'Phone photo + handwriting',
     description: 'A blood count report photographed at an angle, with handwritten notes.',
     image: '/demo/lab-report-photo.webp',
+    thumbnail: '/demo/thumbs/lab-report-photo.webp',
     alt: 'Synthetic photo of a printed blood count report on a desk, with handwritten notes in blue ink',
     task: 'lab',
   },
@@ -51,6 +54,7 @@ export const demoSamples: DemoSample[] = [
     title: 'Faxed clinical note',
     description: 'A discharge summary with medications and an adverse drug reaction, in the style of the n2c2 2018 challenge.',
     image: '/demo/clinical-note-fax.webp',
+    thumbnail: '/demo/thumbs/clinical-note-fax.webp',
     alt: 'Synthetic faxed hospital discharge summary excerpt listing medications and a drug rash',
     task: 'meds',
   },

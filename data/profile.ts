@@ -175,7 +175,7 @@ export const projects: { title: string; description: string; technologies: strin
     title: 'Clinical Document Extraction Demo',
     description: 'The live demo on this page: Gemini reads synthetic lab reports and clinical notes and returns structured data, scored field by field against an answer key.',
     technologies: ['Gemini', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Netlify Functions'],
-    link: '#demo',
+    link: '#live-demo',
   },
   {
     title: 'Flyte Bot Conversational AI',

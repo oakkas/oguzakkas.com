@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { demoSamples, scoreExtraction, type DemoRun, type Score } from '../data/demo';
 import { savedRuns } from '../data/demoRuns';
-import { CheckIcon, CrossIcon } from './Icons';
+import { CheckIcon, CloseIcon, CrossIcon } from './Icons';
 
 const steps = [
   { title: 'Document image', text: 'A synthetic lab report or clinical note, as a photo, scan, or fax would arrive.' },
@@ -32,7 +32,7 @@ const ResultTables: React.FC<{ score: Score }> = ({ score }) => (
     {score.groups.map(group => (
       <div key={group.title}>
         <h4 className="mb-2 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">{group.title}</h4>
-        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+        <div className="relative overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-900/60 dark:text-slate-400">
               <tr>{group.columns.map(column => <th key={column} className="whitespace-nowrap px-3 py-2 font-semibold">{column}</th>)}</tr>
@@ -85,7 +85,7 @@ const ResultTables: React.FC<{ score: Score }> = ({ score }) => (
   </div>
 );
 
-const Demo: React.FC = () => {
+const DemoContent: React.FC = () => {
   const [selectedId, setSelectedId] = useState(demoSamples[0].id);
   const [liveRuns, setLiveRuns] = useState<Record<string, DemoRun>>({});
   const [isRunning, setIsRunning] = useState(false);
@@ -133,14 +133,9 @@ const Demo: React.FC = () => {
   };
 
   return (
-    <section id="demo" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Live demo">
-      <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-white/75 dark:bg-slate-900/75 px-6 py-5 backdrop-blur-sm md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-        <h2 className="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-200 lg:sr-only">Demo</h2>
-      </div>
-
-      <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-sm md:p-7 dark:border-slate-700 dark:bg-slate-800/60">
+      <div className="p-5 pt-6 md:p-8">
         <p className="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400">Live demo</p>
-        <h3 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Clinical documents → structured data</h3>
+        <h3 id="live-demo-title" className="mt-1 pr-10 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Clinical documents → structured data</h3>
         <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-400">
           A small re-creation of the OCR and LLM extraction pipelines I build. Gemini reads a document image and returns
           structured data, which is checked against an answer key. Every document here is synthetic.
@@ -163,7 +158,7 @@ const Demo: React.FC = () => {
                   : 'border-slate-200 hover:border-slate-400 dark:border-slate-700 dark:hover:border-slate-500'
               }`}
             >
-              <img src={s.image} alt="" loading="lazy" className="h-20 w-full object-cover object-top sm:h-28" />
+              <img src={s.thumbnail} alt="" loading="lazy" className="h-20 w-full object-cover object-top sm:h-28" />
               <span className={`block px-2 py-2 text-xs font-semibold leading-tight sm:px-3 sm:text-sm ${
                 s.id === sample.id ? 'text-sky-700 dark:text-sky-300' : 'text-slate-700 dark:text-slate-300'
               }`}>
@@ -174,7 +169,7 @@ const Demo: React.FC = () => {
         </div>
 
         <div id="demo-panel" role="tabpanel" className="mt-6 grid gap-6 lg:grid-cols-5">
-          <figure className="lg:col-span-2">
+          <figure className="min-w-0 lg:col-span-2">
             <a href={sample.image} target="_blank" rel="noreferrer noopener" className="block overflow-hidden rounded-lg border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900">
               <img src={sample.image} alt={sample.alt} className="w-full" width={1000} height={1294} />
             </a>
@@ -183,7 +178,7 @@ const Demo: React.FC = () => {
             </figcaption>
           </figure>
 
-          <div className="lg:col-span-3">
+          <div className="min-w-0 lg:col-span-3">
             <div className="mb-4 flex flex-wrap items-center gap-3">
               {score && <ScoreBadge score={score} />}
               <button
@@ -241,6 +236,106 @@ const Demo: React.FC = () => {
           ).
         </p>
       </div>
+  );
+};
+
+// Opening the demo is a link to #live-demo, so any link on the page (or a shared URL) can open it
+const DEMO_HASH = '#live-demo';
+
+const Demo: React.FC = () => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const dialog = dialogRef.current;
+      if (window.location.hash !== DEMO_HASH || !dialog || dialog.open) return;
+      dialog.showModal();
+      setIsOpen(true);
+      document.documentElement.style.overflow = 'hidden';
+    };
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+    return () => window.removeEventListener('hashchange', openFromHash);
+  }, []);
+
+  const handleClose = () => {
+    setIsOpen(false);
+    document.documentElement.style.overflow = '';
+    if (window.location.hash === DEMO_HASH) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
+
+  return (
+    <section id="demo" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Live demo">
+      <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-white/75 dark:bg-slate-900/75 px-6 py-5 backdrop-blur-sm md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+        <h2 className="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-200 lg:sr-only">Demo</h2>
+      </div>
+
+      <div className="group flex flex-col gap-6 overflow-hidden rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm sm:flex-row sm:items-center md:p-8 dark:border-slate-700 dark:bg-slate-800/60">
+        <div className="flex-1">
+          <p className="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400">Live demo</p>
+          <h3 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Clinical documents → structured data</h3>
+          <p className="mt-2 text-slate-600 dark:text-slate-400">
+            Watch Gemini read a synthetic lab report or clinical note, then see every extracted field checked against an answer key.
+          </p>
+          <ul className="mt-4 flex flex-wrap gap-2 text-xs font-medium text-slate-600 dark:text-slate-300">
+            {['3 synthetic documents', 'Scored field by field', 'A few seconds per run'].map(fact => (
+              <li key={fact} className="rounded-full bg-slate-100 px-3 py-1 dark:bg-slate-700/60">{fact}</li>
+            ))}
+          </ul>
+          <a
+            href={DEMO_HASH}
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500"
+          >
+            Open the live demo <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <a href={DEMO_HASH} tabIndex={-1} aria-hidden="true" className="relative mx-auto h-40 w-56 shrink-0 sm:mx-0 sm:h-44">
+          {demoSamples.map((s, index) => (
+            <img
+              key={s.id}
+              src={s.thumbnail}
+              alt=""
+              loading="lazy"
+              className={`absolute top-2 h-36 w-28 rounded-md border border-slate-200 object-cover object-top shadow-lg transition-transform duration-300 dark:border-slate-600 ${
+                [
+                  'left-0 -rotate-6 group-hover:-translate-x-2 group-hover:-rotate-12',
+                  'left-14 z-10 group-hover:-translate-y-2',
+                  'left-28 rotate-6 group-hover:translate-x-2 group-hover:rotate-12',
+                ][index]
+              }`}
+            />
+          ))}
+        </a>
+      </div>
+
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="live-demo-title"
+        onClose={handleClose}
+        onClick={event => {
+          // A click on the dimmed backdrop lands on the dialog element itself
+          if (event.target === dialogRef.current) dialogRef.current?.close();
+        }}
+        className="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-white p-0 text-slate-600 backdrop:bg-slate-950/70 backdrop:backdrop-blur-sm sm:m-auto sm:h-auto sm:max-h-[92dvh] sm:w-[min(72rem,94vw)] sm:rounded-2xl sm:shadow-2xl dark:bg-slate-900 dark:text-slate-300"
+      >
+        {isOpen && (
+          <>
+            <div className="sticky top-0 z-10 flex h-0 justify-end">
+              <button
+                onClick={() => dialogRef.current?.close()}
+                className="mr-3 mt-3 h-fit rounded-full bg-white/90 p-2 text-slate-500 shadow-sm transition-colors hover:bg-slate-100 hover:text-slate-900 dark:bg-slate-800/90 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white"
+                aria-label="Close the demo"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+            <DemoContent />
+          </>
+        )}
+      </dialog>
     </section>
   );
 };
