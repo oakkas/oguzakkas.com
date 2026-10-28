@@ -1,40 +1,6 @@
 import React from 'react';
 import { ArrowUpRightIcon } from './Icons';
-
-const experiences = [
-  {
-    date: 'APR 2024 — PRESENT',
-    title: 'Lead Data / ML Engineer',
-    company: 'FlyteHealth',
-    description: 'Developed Flyte Bot, a conversational interface using Langchain, OpenAI, Gemini, and more. Engineered OCR and LLM-based data extraction pipelines. Built and maintained a Data Lake and Data Warehouse on S3/Redshift, and automated CI/CD processes with Terraform.',
-    technologies: ['Langchain', 'OpenAI', 'Gemini', 'Anthropic', 'Bedrock', 'S3', 'Redshift', 'PostgreSQL', 'AWS Batch', 'Terraform'],
-    link: 'https://www.flytehealth.com/'
-  },
-  {
-    date: 'OCT 2023 — MAR 2024',
-    title: 'Senior Tech Lead',
-    company: 'Verana Health',
-    description: "Redesigned a commercial production tool's data pipeline with custom LLMs and GPT-4, reducing processing time from weeks to hours. Led efforts in defining, architecting, and developing a machine learning platform and mentored junior engineers.",
-    technologies: ['LLMs', 'GPT-4', 'MLOps', 'Databricks', 'PySpark', 'Airflow', 'AWS SageMaker', 'Terraform', 'Docker'],
-    link: 'https://www.veranahealth.com/'
-  },
-  {
-    date: 'APR 2021 — MAR 2022',
-    title: 'Senior Machine Learning Software Engineer',
-    company: 'Wind River',
-    description: "Led the design, development, and integration of the data science platform. Contributed to ETL and data extraction processes designed for distributed and parallel efficiency, and wrangled data to build and deploy analytical models.",
-    technologies: ['Python', 'ETL', 'Cloud Analytics', 'Data Science', 'ML Platform'],
-    link: 'https://www.windriver.com/'
-  },
-   {
-    date: 'SEP 2019 — APR 2021',
-    title: 'NLP Engineer / Data Scientist',
-    company: 'Pinnacol Assurance',
-    description: "Performed EDA and applied various machine learning and deep learning models. Created end-to-end machine learning pipelines using Sklearn, Airflow, PySpark, and Prefect. Automated workflows with Docker, Kubernetes, and Google Cloud products.",
-    technologies: ['Python', 'sklearn', 'pandas', 'Airflow', 'PySpark', 'Prefect', 'Docker', 'Kubernetes', 'GCP'],
-    link: 'https://www.pinnacol.com/'
-  }
-];
+import { experiences } from '../data/profile';
 
 const ExperienceCard: React.FC<{ experience: typeof experiences[0] }> = ({ experience }) => {
   return (

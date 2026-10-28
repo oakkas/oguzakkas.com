@@ -1,31 +1,5 @@
 import React from 'react';
-
-const skillsData = [
-  {
-    category: 'Programming Languages',
-    skills: ['Python', 'SQL', 'JavaScript/TypeScript', 'Scala']
-  },
-  {
-    category: 'Cloud Platforms',
-    skills: ['AWS', 'GCP', 'Databricks']
-  },
-  {
-    category: 'ML Frameworks & Libraries',
-    skills: ['PyTorch', 'TensorFlow', 'scikit-learn', 'Langchain', 'HuggingFace']
-  },
-  {
-    category: 'Data Processing & Databases',
-    skills: ['Apache Spark', 'PostgreSQL', 'Redshift', 'Airflow', 'Pandas']
-  },
-  {
-    category: 'DevOps & MLOps',
-    skills: ['Docker', 'Kubernetes', 'Terraform', 'MLFlow', 'GitHub Actions']
-  },
-  {
-    category: 'Web Technologies',
-    skills: ['React', 'Node.js', 'Tailwind CSS', 'HTML/CSS']
-  }
-];
+import { skillsData } from '../data/profile';
 
 const Skills: React.FC = () => {
   return (

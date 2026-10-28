@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GitHubIcon, LinkedInIcon, EmailIcon } from './Icons';
 import ThemeToggle from './ThemeToggle';
 import { motion } from 'framer-motion';
+import { profile } from '../data/profile';
 
 const navLinks = [
   { id: 'about', name: 'About' },
@@ -33,13 +34,13 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const subtitle = "ML & Data Engineer";
+  const subtitle = profile.title;
 
   return (
     <div className="flex flex-col h-full justify-between">
       <div>
         <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
-          Oguz Akkas
+          {profile.name}
         </h1>
         <h2 className="mt-4 text-xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-2xl h-8">
           {subtitle.split("").map((char, index) => (
@@ -57,7 +58,7 @@ const Hero: React.FC = () => {
           ))}
         </h2>
         <p className="mt-6 max-w-sm text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-          I design and deploy scalable machine learning models and data pipelines, with expertise in NLP and distributed processing.
+          {profile.tagline}
         </p>
         <nav className="hidden lg:block mt-16" aria-label="In-page jump links">
           <ul className="w-max">
@@ -76,19 +77,19 @@ const Hero: React.FC = () => {
       <div className="flex items-center">
         <ul className="ml-1 mt-8 flex items-center" aria-label="Social media">
           <li className="mr-5 text-xs shrink-0">
-            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href="https://github.com/oakkas" target="_blank" rel="noreferrer noopener" aria-label="GitHub (opens in a new tab)">
+            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={profile.github} target="_blank" rel="noreferrer noopener" aria-label="GitHub (opens in a new tab)">
               <span className="sr-only">GitHub</span>
               <GitHubIcon />
             </a>
           </li>
           <li className="mr-5 text-xs shrink-0">
-            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href="https://www.linkedin.com/in/oguz-akkas-ph-d-2947a836/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn (opens in a new tab)">
+            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={profile.linkedin} target="_blank" rel="noreferrer noopener" aria-label="LinkedIn (opens in a new tab)">
               <span className="sr-only">LinkedIn</span>
               <LinkedInIcon />
             </a>
           </li>
           <li className="mr-5 text-xs shrink-0">
-            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href="mailto:oakkas84@gmail.com" aria-label="Email Oguz Akkas">
+            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}>
               <span className="sr-only">Email</span>
               <EmailIcon />
             </a>

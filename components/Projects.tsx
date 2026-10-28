@@ -1,32 +1,6 @@
 import React from 'react';
 import { ArrowUpRightIcon } from './Icons';
-
-const projects = [
-  {
-    title: 'Flyte Bot Conversational AI',
-    description: 'Developed a conversational interface leveraging Langchain, OpenAI, Gemini, Anthropic, and Bedrock to enhance user engagement at FlyteHealth.',
-    technologies: ['Langchain', 'OpenAI', 'Gemini', 'LLMs'],
-    link: 'https://github.com/oakkas',
-  },
-  {
-    title: 'Automated Data Extraction Pipeline',
-    description: 'Engineered OCR and LLM-based data extraction pipelines for patient ID and lab test documents, aligning with robust feature engineering practices.',
-    technologies: ['OCR', 'LLMs', 'Python', 'AWS'],
-    link: 'https://github.com/oakkas',
-  },
-  {
-    title: 'High-Throughput Commercial Data Pipeline',
-    description: "Redesigned a commercial production tool's data pipeline by integrating custom LLMs and the GPT-4 API, reducing processing time from weeks to hours and optimizing resource allocation at Verana Health.",
-    technologies: ['LLMs', 'GPT-4', 'MLOps', 'Data Pipelines'],
-    link: 'https://github.com/oakkas',
-  },
-   {
-    title: 'Automated ML Model Training & Deployment',
-    description: 'Created text-based ML model training and deployment templates using PyTorch and HuggingFace, with CI/CD powered by Terraform and GitHub Actions.',
-    technologies: ['PyTorch', 'HuggingFace', 'Terraform', 'CI/CD'],
-    link: 'https://github.com/oakkas',
-  },
-];
+import { projects } from '../data/profile';
 
 const ProjectCard: React.FC<{ project: typeof projects[0] }> = ({ project }) => {
   return (

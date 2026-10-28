@@ -6,6 +6,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import OpsComparison from './components/OpsComparison';
+import ChatWidget from './components/ChatWidget';
 
 const App: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </main>
+      <ChatWidget />
     </div>
   );
 };
