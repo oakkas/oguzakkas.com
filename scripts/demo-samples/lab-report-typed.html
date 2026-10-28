@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  body { margin: 0; background: #fff; font-family: Helvetica, Arial, sans-serif; color: #111; }
+  .page { width: 1000px; height: 1294px; box-sizing: border-box; padding: 56px 64px; position: relative; }
+  header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #1f4e79; padding-bottom: 14px; }
+  .lab { font-size: 28px; font-weight: 700; color: #1f4e79; }
+  .lab small { display: block; font-size: 13px; font-weight: 400; color: #444; margin-top: 4px; }
+  .title { font-size: 20px; font-weight: 700; text-align: right; }
+  .title small { display: block; font-size: 13px; font-weight: 400; color: #444; margin-top: 4px; }
+  .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 24px; margin: 20px 0 24px; font-size: 15px; }
+  .meta b { display: block; font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: .05em; }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; }
+  th { background: #e8eef5; text-align: left; padding: 9px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #1f4e79; }
+  td { padding: 10px; border-bottom: 1px solid #ddd; }
+  td.flag { font-weight: 700; color: #b00020; width: 60px; }
+  tr.section td { background: #f5f5f5; font-weight: 700; font-size: 13px; color: #333; padding: 7px 10px; letter-spacing: .03em; }
+  .watermark { position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%) rotate(-28deg); font-size: 66px; font-weight: 800; color: rgba(200, 0, 0, .08); white-space: nowrap; }
+  footer { position: absolute; bottom: 48px; left: 64px; right: 64px; font-size: 12px; color: #555; border-top: 1px solid #ccc; padding-top: 10px; display: flex; justify-content: space-between; }
+</style></head><body><div class="page">
+  <header>
+    <div class="lab">Sample Diagnostics Laboratory<small>100 Example Avenue, Springfield &middot; Synthetic demo lab</small></div>
+    <div class="title">Laboratory Report<small>Final &middot; Page 1 of 1</small></div>
+  </header>
+  <div class="meta">
+    <div><b>Patient</b>SAMPLE, JANE</div>
+    <div><b>Date of birth</b>01/01/1980 &middot; F</div>
+    <div><b>MRN</b>DEMO-0001</div>
+    <div><b>Collected</b>09/14/2026 07:42</div>
+    <div><b>Reported</b>09/14/2026 15:10</div>
+    <div><b>Ordering provider</b>A. Example, MD</div>
+  </div>
+  <table>
+    <tr><th>Test</th><th>Result</th><th>Flag</th><th>Units</th><th>Reference range</th></tr>
+    <tr class="section"><td colspan="5">BASIC METABOLIC PANEL (FASTING)</td></tr>
+    <tr><td>Glucose</td><td>112</td><td class="flag">H</td><td>mg/dL</td><td>70 - 99</td></tr>
+    <tr><td>Sodium</td><td>139</td><td class="flag"></td><td>mmol/L</td><td>134 - 144</td></tr>
+    <tr><td>Potassium</td><td>3.3</td><td class="flag">L</td><td>mmol/L</td><td>3.5 - 5.2</td></tr>
+    <tr><td>Creatinine</td><td>0.86</td><td class="flag"></td><td>mg/dL</td><td>0.57 - 1.00</td></tr>
+    <tr><td>eGFR</td><td>88</td><td class="flag"></td><td>mL/min/1.73m&sup2;</td><td>&gt;59</td></tr>
+    <tr class="section"><td colspan="5">HEPATIC</td></tr>
+    <tr><td>ALT (SGPT)</td><td>22</td><td class="flag"></td><td>U/L</td><td>0 - 32</td></tr>
+    <tr class="section"><td colspan="5">LIPID PANEL</td></tr>
+    <tr><td>Cholesterol, Total</td><td>214</td><td class="flag">H</td><td>mg/dL</td><td>&lt;200</td></tr>
+    <tr><td>LDL Cholesterol (calc)</td><td>138</td><td class="flag">H</td><td>mg/dL</td><td>&lt;100</td></tr>
+    <tr><td>HDL Cholesterol</td><td>48</td><td class="flag"></td><td>mg/dL</td><td>&gt;39</td></tr>
+    <tr><td>Triglycerides</td><td>142</td><td class="flag"></td><td>mg/dL</td><td>&lt;150</td></tr>
+    <tr class="section"><td colspan="5">DIABETES MONITORING</td></tr>
+    <tr><td>Hemoglobin A1c</td><td>6.1</td><td class="flag">H</td><td>%</td><td>4.8 - 5.6</td></tr>
+  </table>
+  <div class="watermark">SYNTHETIC &middot; DEMO ONLY</div>
+  <footer><span>SYNTHETIC DEMO DOCUMENT. Not a real patient, provider, or laboratory.</span><span>Created for oguzakkas.com</span></footer>
+</div></body></html>

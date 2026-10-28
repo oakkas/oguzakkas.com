@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check:chat": "node scripts/check-chat.mjs"
+    "check:chat": "node scripts/check-chat.mjs",
+    "demo:save": "node scripts/save-demo-runs.mjs",
+    "images:render": "./scripts/render-images.sh"
   },
   "dependencies": {
     "framer-motion": "^12.23.24",

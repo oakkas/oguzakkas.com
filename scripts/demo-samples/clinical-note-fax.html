@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  body { margin: 0; width: 1000px; height: 1294px; overflow: hidden; background: #fff; }
+  .page { position: absolute; inset: 0; padding: 40px 70px; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; font-size: 18px; line-height: 1.5; color: #000;
+    transform: rotate(.7deg); filter: grayscale(1) contrast(1.7) blur(.5px); }
+  .faxline { font-size: 14px; border-bottom: 1px dashed #000; padding-bottom: 6px; margin-bottom: 26px; letter-spacing: .02em; }
+  h1 { font-size: 21px; margin: 0 0 4px; text-decoration: underline; }
+  p { margin: 0 0 14px; }
+  .label { font-weight: bold; }
+  .streak { position: absolute; left: 0; right: 0; height: 2px; background: rgba(0,0,0,.25); }
+  .noise { position: absolute; inset: 0; opacity: .28; mix-blend-mode: multiply; }
+</style></head><body>
+  <div class="page">
+    <div class="faxline">09/16/2026 14:32 &nbsp; FAX (555) 010-0199 &nbsp; EXAMPLE GENERAL HOSPITAL &nbsp;&nbsp; P.002/003</div>
+    <h1>DISCHARGE SUMMARY (EXCERPT)</h1>
+    <p>Patient: SAMPLE, PAT &nbsp;&nbsp; MRN: DEMO-0003 &nbsp;&nbsp; DOB: 03/03/1958<br>
+    Admitted: 09/10/2026 &nbsp;&nbsp; Discharged: 09/16/2026<br>
+    Attending: A. Example, MD</p>
+    <p><span class="label">HOSPITAL COURSE:</span> 68-year-old woman with type 2 diabetes and hypertension admitted with community-acquired pneumonia. She was started on ceftriaxone 1 g IV daily and azithromycin 500 mg PO daily. On hospital day 3 she developed a diffuse pruritic rash on the trunk and arms, felt to be a reaction to ceftriaxone. Ceftriaxone and azithromycin were discontinued and she was switched to levofloxacin 750 mg PO daily. The rash improved with diphenhydramine 25 mg PO q6h as needed. Home metformin 500 mg PO twice daily was held on admission because of IV contrast and resumed at discharge. Home lisinopril 10 mg PO daily was continued.</p>
+    <p><span class="label">ALLERGIES:</span> Ceftriaxone (rash) - NEW</p>
+    <p><span class="label">DISCHARGE MEDICATIONS:</span><br>
+    1. Levofloxacin 750 mg PO daily x 5 more days<br>
+    2. Metformin 500 mg PO twice daily<br>
+    3. Lisinopril 10 mg PO daily<br>
+    4. Diphenhydramine 25 mg PO every 6 hours as needed for itching</p>
+    <p><span class="label">FOLLOW-UP:</span> Primary care in 1 week.</p>
+    <p style="margin-top: 40px; font-size: 14px;">*** SYNTHETIC DEMO DOCUMENT - NOT A REAL PATIENT OR PROVIDER - CREATED FOR OGUZAKKAS.COM ***</p>
+  </div>
+  <div class="streak" style="top: 412px;"></div>
+  <div class="streak" style="top: 905px; opacity: .6;"></div>
+  <svg class="noise" width="1000" height="1294"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</body></html>

@@ -9,10 +9,19 @@ const ProjectCard: React.FC<{ project: typeof projects[0] }> = ({ project }) => 
         <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-100/50 dark:lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
         <div className="z-10">
           <h3>
-             <a className="inline-flex items-baseline font-medium leading-tight text-slate-900 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-300 focus-visible:text-sky-500 dark:focus-visible:text-sky-300 group/link text-base" href={project.link} target="_blank" rel="noreferrer noopener" aria-label={`${project.title} (opens in a new tab)`}>
-              <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-sm md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-              <span>{project.title} <ArrowUpRightIcon /> </span>
-             </a>
+            {project.link?.startsWith('#') ? (
+              <a className="inline-flex items-baseline font-medium leading-tight text-slate-900 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-300 focus-visible:text-sky-500 dark:focus-visible:text-sky-300 text-base" href={project.link}>
+                <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-sm md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                <span>{project.title} <span className="ml-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Try it</span></span>
+              </a>
+            ) : project.link ? (
+              <a className="inline-flex items-baseline font-medium leading-tight text-slate-900 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-300 focus-visible:text-sky-500 dark:focus-visible:text-sky-300 group/link text-base" href={project.link} target="_blank" rel="noreferrer noopener" aria-label={`${project.title} (opens in a new tab)`}>
+                <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-sm md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                <span>{project.title} <ArrowUpRightIcon /> </span>
+              </a>
+            ) : (
+              <span className="font-medium leading-tight text-slate-900 dark:text-slate-200 text-base">{project.title}</span>
+            )}
           </h3>
           <p className="mt-2 text-sm leading-normal">{project.description}</p>
           <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">

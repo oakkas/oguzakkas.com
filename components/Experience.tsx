@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRightIcon } from './Icons';
-import { experiences } from '../data/profile';
+import { experiences, earlierExperiences, profile } from '../data/profile';
 
 const ExperienceCard: React.FC<{ experience: typeof experiences[0] }> = ({ experience }) => {
   return (
@@ -43,12 +43,29 @@ const Experience: React.FC = () => {
             <ExperienceCard key={index} experience={exp} />
           ))}
         </ol>
+        <details className="group/earlier rounded-lg border border-slate-200 bg-white/60 dark:border-slate-700 dark:bg-slate-800/40">
+          <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-medium text-slate-900 dark:text-slate-200 [&::-webkit-details-marker]:hidden">
+            <span>Earlier roles, 2012 – 2019</span>
+            <span className="text-sm text-slate-500 transition-transform group-open/earlier:rotate-180" aria-hidden="true">▾</span>
+          </summary>
+          <ol className="space-y-5 border-t border-slate-200 px-4 py-4 dark:border-slate-700">
+            {earlierExperiences.map(role => (
+              <li key={`${role.company}-${role.date}`} className="sm:grid sm:grid-cols-8 sm:gap-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2 sm:mt-0.5">{role.date}</p>
+                <div className="sm:col-span-6">
+                  <h3 className="font-medium text-slate-900 dark:text-slate-200">{role.title} · {role.company}</h3>
+                  <p className="mt-1 text-sm leading-normal">{role.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </details>
         <div className="mt-12">
-            <a className="inline-flex items-center font-medium leading-tight text-slate-900 dark:text-slate-200 group" href="/resume.pdf" target="_blank" rel="noreferrer noopener" aria-label="View Full Résumé (opens in a new tab)">
+            <a className="inline-flex items-center font-medium leading-tight text-slate-900 dark:text-slate-200 group" href={profile.linkedin} target="_blank" rel="noreferrer noopener" aria-label="View full work history on LinkedIn (opens in a new tab)">
                 <span>
-                <span className="border-b border-transparent pb-px transition group-hover:border-sky-500 dark:group-hover:border-sky-300 motion-reduce:transition-none">View Full </span>
+                <span className="border-b border-transparent pb-px transition group-hover:border-sky-500 dark:group-hover:border-sky-300 motion-reduce:transition-none">View full work history on </span>
                 <span className="whitespace-nowrap">
-                    Résumé
+                    LinkedIn
                     <ArrowUpRightIcon />
                 </span>
                 </span>

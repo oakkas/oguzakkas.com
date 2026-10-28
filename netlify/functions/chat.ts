@@ -1,5 +1,6 @@
 import type { Config } from '@netlify/functions';
-import { profile, extraFacts, skillsData, experiences, projects } from '../../data/profile.ts';
+import { profile, extraFacts, skillsData, experiences, earlierExperiences, education, publications, projects } from '../../data/profile.ts';
+import { busyResponse, callGemini } from '../../lib/gemini.ts';
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
 const MAX_MESSAGES = 8;
@@ -45,10 +46,18 @@ const buildSystemPrompt = () => {
     ...skillsData.map(({ category, skills }) => `- ${category}: ${skills.join(', ')}`),
     '',
     'Experience (most recent first):',
-    ...experiences.map(e => `- ${e.date}: ${e.title} at ${e.company}. ${e.description} Technologies: ${e.technologies.join(', ')}.`),
+    ...[...experiences, ...earlierExperiences].map(e => `- ${e.date}: ${e.title} at ${e.company}. ${e.description} Technologies: ${e.technologies.join(', ')}.`),
+    '',
+    'Education:',
+    ...education.map(e => `- ${e.degree}${e.note ? ` (${e.note.toLowerCase()})` : ''}, ${e.school}, ${e.year}`),
+    '',
+    'Publications:',
+    ...publications.map(p => `- ${p.authors} (${p.year}). ${p.title}. ${p.venue}.`),
     '',
     'Projects:',
     ...projects.map(p => `- ${p.title}: ${p.description} Technologies: ${p.technologies.join(', ')}.`),
+    '',
+    'This website has a live demo section where visitors can watch Gemini extract structured data from synthetic lab reports and clinical notes.',
   ];
   if (extraFacts.length > 0) {
     lines.push('', 'Other facts:', ...extraFacts.map(fact => `- ${fact}`));
@@ -98,57 +107,29 @@ export default async (req: Request) => {
     return Response.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  let res: Response;
-  try {
-    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        contents: [{ role: 'user', parts: [{ text: buildUserTurn(messages) }] }],
-        generationConfig: {
-          // Thinking tokens count toward this limit, so leave headroom beyond the ~120-word answer
-          maxOutputTokens: 1024,
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              onTopic: { type: 'BOOLEAN' },
-              answer: { type: 'STRING' },
-            },
-            required: ['onTopic', 'answer'],
-            propertyOrdering: ['onTopic', 'answer'],
-          },
+  const outcome = await callGemini(apiKey, MODEL, {
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    contents: [{ role: 'user', parts: [{ text: buildUserTurn(messages) }] }],
+    generationConfig: {
+      // Thinking tokens count toward this limit, so leave headroom beyond the ~120-word answer
+      maxOutputTokens: 1024,
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: 'OBJECT',
+        properties: {
+          onTopic: { type: 'BOOLEAN' },
+          answer: { type: 'STRING' },
         },
-      }),
-      signal: AbortSignal.timeout(20_000),
-    });
-  } catch (error) {
-    console.error('Gemini request failed', error);
-    return Response.json({ error: ERROR_MESSAGE }, { status: 502 });
-  }
+        required: ['onTopic', 'answer'],
+        propertyOrdering: ['onTopic', 'answer'],
+      },
+    },
+  });
+  if (outcome.kind === 'busy') return busyResponse(BUSY_MESSAGE, outcome.retryAfter);
+  if (outcome.kind === 'blocked') return Response.json({ reply: OFF_TOPIC_MESSAGE });
+  if (outcome.kind === 'error') return Response.json({ error: ERROR_MESSAGE }, { status: 502 });
 
-  if (res.status === 429) {
-    // Gemini says how long to wait in a RetryInfo detail, e.g. "retryDelay": "23s"
-    const delay = (await res.text()).match(/"retryDelay":\s*"(\d+(?:\.\d+)?)s"/);
-    const retryAfter = delay ? Math.max(1, Math.ceil(Number(delay[1]))) : 60;
-    return Response.json(
-      { error: BUSY_MESSAGE, retryAfter },
-      { status: 429, headers: { 'Retry-After': String(retryAfter) } },
-    );
-  }
-  if (!res.ok) {
-    console.error('Gemini error', res.status, await res.text());
-    return Response.json({ error: ERROR_MESSAGE }, { status: 502 });
-  }
-
-  const data = await res.json();
-  if (data?.promptFeedback?.blockReason || data?.candidates?.[0]?.finishReason === 'SAFETY') {
-    return Response.json({ reply: OFF_TOPIC_MESSAGE });
-  }
-
-  const parts: { text?: string; thought?: boolean }[] = data?.candidates?.[0]?.content?.parts ?? [];
-  const text = parts.filter(p => !p.thought).map(p => p.text ?? '').join('');
+  const { text } = outcome;
   let result: { onTopic?: unknown; answer?: unknown };
   try {
     result = JSON.parse(text);

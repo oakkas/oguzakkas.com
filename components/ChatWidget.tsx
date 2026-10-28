@@ -24,6 +24,9 @@ const formatWait = (seconds: number) => (seconds < 90 ? `${seconds}s` : `${Math.
 // "visitor": this visitor's per-minute limit. "busy": Gemini's free quota for the whole site.
 type Block = { until: number; reason: 'visitor' | 'busy' };
 
+// Other components open the chat by dispatching this event on window
+export const OPEN_CHAT_EVENT = 'open-chat';
+
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -45,6 +48,12 @@ const ChatWidget: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
+
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener(OPEN_CHAT_EVENT, open);
+    return () => window.removeEventListener(OPEN_CHAT_EVENT, open);
+  }, []);
 
   // Ticks while the panel is open so the countdown and "questions left" stay current
   useEffect(() => {

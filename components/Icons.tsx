@@ -171,3 +171,15 @@ export const SendIcon: React.FC = () => (
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5M5 12l7-7 7 7" />
     </svg>
 );
+
+export const CheckIcon: React.FC = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0" aria-hidden="true">
+        <path fillRule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.58l7.3-7.3a1 1 0 0 1 1.4 0Z" clipRule="evenodd" />
+    </svg>
+);
+
+export const CrossIcon: React.FC = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0" aria-hidden="true">
+        <path d="M5.7 4.3a1 1 0 0 0-1.4 1.4L8.58 10l-4.3 4.3a1 1 0 1 0 1.42 1.4L10 11.42l4.3 4.3a1 1 0 0 0 1.4-1.42L11.42 10l4.3-4.3a1 1 0 0 0-1.42-1.4L10 8.58 5.7 4.3Z" />
+    </svg>
+);
