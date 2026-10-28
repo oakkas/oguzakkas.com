@@ -12,6 +12,7 @@ const focusAreas = ['LLM pipelines', 'NLP systems', 'data platforms', 'MLOps'];
 const navLinks = [
   { id: 'about', name: 'About' },
   { id: 'demo', name: 'Demo' },
+  { id: 'experience-map', name: 'Experience map' },
   { id: 'experience', name: 'Experience' },
   { id: 'projects', name: 'Projects' },
   { id: 'how-i-work', name: 'How I work' },

@@ -3,6 +3,7 @@ import { MotionConfig } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
 import Demo from './components/Demo';
+import ExperienceMap from './components/ExperienceMap';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
@@ -32,6 +33,7 @@ const App: React.FC = () => {
             <div className="pt-24 lg:col-span-3 lg:py-24">
               <About />
               <Demo />
+              <ExperienceMap />
               <Experience />
               <Projects />
               <HowIWork />

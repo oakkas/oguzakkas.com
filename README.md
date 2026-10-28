@@ -18,6 +18,7 @@ The `/api/*` Netlify Functions don't run under `npm run dev`; use `npx netlify d
 ## Where things live
 
 - `data/profile.ts`: all page content, also used by the chat assistant and the résumé
+- `components/ExperienceMap.tsx`: the map of data, pipelines, AI / ML and platform work. Each role's areas come from its technologies and description, matched against the terms listed there
 - `components/Resume.tsx`: the printable résumé at `/resume` (its own page, `resume.html`)
 - `data/demo.ts`: demo documents, answer keys, and scoring
 - `netlify/functions/chat.ts`: "Ask about Oguz" assistant (Gemini)
