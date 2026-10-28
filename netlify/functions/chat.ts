@@ -129,7 +129,13 @@ export default async (req: Request) => {
   }
 
   if (res.status === 429) {
-    return Response.json({ error: BUSY_MESSAGE }, { status: 429 });
+    // Gemini says how long to wait in a RetryInfo detail, e.g. "retryDelay": "23s"
+    const delay = (await res.text()).match(/"retryDelay":\s*"(\d+(?:\.\d+)?)s"/);
+    const retryAfter = delay ? Math.max(1, Math.ceil(Number(delay[1]))) : 60;
+    return Response.json(
+      { error: BUSY_MESSAGE, retryAfter },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } },
+    );
   }
   if (!res.ok) {
     console.error('Gemini error', res.status, await res.text());
@@ -166,6 +172,6 @@ export default async (req: Request) => {
 export const config: Config = {
   path: '/api/chat',
   method: 'POST',
-  // Per visitor IP: at most 6 questions a minute
+  // Per visitor IP: at most 6 questions a minute. ChatWidget mirrors these numbers.
   rateLimit: { windowLimit: 6, windowSize: 60, aggregateBy: ['ip', 'domain'] },
 };

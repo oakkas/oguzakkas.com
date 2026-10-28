@@ -13,8 +13,16 @@ const suggestions = [
   `Where did ${firstName} study?`,
 ];
 
-const BUSY_MESSAGE = `The assistant is busy right now. Please try again in a minute, or email ${profile.email}.`;
 const ERROR_MESSAGE = `Sorry, something went wrong. Please try again, or email ${profile.email}.`;
+
+// Mirrors config.rateLimit in netlify/functions/chat.ts
+const RATE_LIMIT = 6;
+const RATE_WINDOW_MS = 60_000;
+
+const formatWait = (seconds: number) => (seconds < 90 ? `${seconds}s` : `${Math.ceil(seconds / 60)} min`);
+
+// "visitor": this visitor's per-minute limit. "busy": Gemini's free quota for the whole site.
+type Block = { until: number; reason: 'visitor' | 'busy' };
 
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +30,9 @@ const ChatWidget: React.FC = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sentAt, setSentAt] = useState<number[]>([]);
+  const [block, setBlock] = useState<Block | null>(null);
+  const [now, setNow] = useState(() => Date.now());
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -35,14 +46,42 @@ const ChatWidget: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
+  // Ticks while the panel is open so the countdown and "questions left" stay current
+  useEffect(() => {
+    if (!isOpen) return;
+    setNow(Date.now());
+    const interval = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(interval);
+  }, [isOpen]);
+
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages, isLoading, error]);
 
+  // The server limit is per IP, so this local count is an estimate; a 429 from the server always wins.
+  const recentSends = sentAt.filter(time => now - time < RATE_WINDOW_MS);
+  const questionsLeft = Math.max(0, RATE_LIMIT - recentSends.length);
+  const localUntil = questionsLeft === 0 ? recentSends[0] + RATE_WINDOW_MS : 0;
+  const serverUntil = block && block.until > now ? block.until : 0;
+  const secondsLeft = Math.ceil((Math.max(localUntil, serverUntil) - now) / 1000);
+  const isLimited = secondsLeft > 0;
+  const limitReason = serverUntil > localUntil && block ? block.reason : 'visitor';
+
+  let limitNotice = '';
+  if (isLimited) {
+    limitNotice = limitReason === 'busy'
+      ? 'The assistant has reached its free usage limit for now.'
+      : `You've reached the limit of ${RATE_LIMIT} questions a minute.`;
+  } else if (recentSends.length > 0 && questionsLeft <= 2) {
+    limitNotice = `${questionsLeft} ${questionsLeft === 1 ? 'question' : 'questions'} left this minute.`;
+  }
+
   const send = async (text: string) => {
     const question = text.trim();
-    if (!question || isLoading) return;
+    if (!question || isLoading || isLimited) return;
 
+    const sentTime = Date.now();
+    setSentAt(times => [...times.filter(time => sentTime - time < RATE_WINDOW_MS), sentTime]);
     const history: Message[] = [...messages, { role: 'user', content: question }];
     setMessages(history);
     setInput('');
@@ -56,10 +95,19 @@ const ChatWidget: React.FC = () => {
         body: JSON.stringify({ messages: history }),
       });
       const data = await res.json().catch(() => null);
-      if (res.ok && data?.reply) {
+      if (res.status === 429) {
+        // Netlify's own limit answers with an empty body; the function's Gemini-quota answer says how long to wait
+        const isBusy = typeof data?.retryAfter === 'number';
+        const retryAfter = Number(res.headers.get('Retry-After')) || (isBusy ? data.retryAfter : RATE_WINDOW_MS / 1000);
+        setBlock({ until: Date.now() + retryAfter * 1000, reason: isBusy ? 'busy' : 'visitor' });
+        setNow(Date.now());
+        // Put the question back so it can be sent again once the wait is over
+        setMessages(messages);
+        setInput(question);
+      } else if (res.ok && data?.reply) {
         setMessages([...history, { role: 'assistant', content: data.reply }]);
       } else {
-        setError(data?.error ?? (res.status === 429 ? BUSY_MESSAGE : ERROR_MESSAGE));
+        setError(data?.error ?? ERROR_MESSAGE);
       }
     } catch {
       setError(ERROR_MESSAGE);
@@ -107,7 +155,8 @@ const ChatWidget: React.FC = () => {
                       <button
                         key={suggestion}
                         onClick={() => send(suggestion)}
-                        className="rounded-full bg-sky-400/10 px-3 py-1 text-left text-xs font-medium text-sky-600 transition-colors hover:bg-sky-400/20 dark:text-sky-300"
+                        disabled={isLoading || isLimited}
+                        className="rounded-full bg-sky-400/10 px-3 py-1 text-left text-xs font-medium text-sky-600 transition-colors hover:bg-sky-400/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-sky-300"
                       >
                         {suggestion}
                       </button>
@@ -151,13 +200,21 @@ const ChatWidget: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  disabled={isLoading || !input.trim()}
-                  className="rounded-md bg-sky-600 px-3 text-white transition-colors hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
-                  aria-label="Send question"
+                  disabled={isLoading || isLimited || !input.trim()}
+                  className="flex min-w-11 items-center justify-center rounded-md bg-sky-600 px-3 text-white transition-colors hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label={isLimited ? `Send question (available in ${formatWait(secondsLeft)})` : 'Send question'}
                 >
-                  <SendIcon />
+                  {isLimited ? <span className="text-xs font-medium tabular-nums">{formatWait(secondsLeft)}</span> : <SendIcon />}
                 </button>
               </div>
+              <p className={`text-xs font-medium ${isLimited ? 'text-amber-700 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'} ${limitNotice ? 'mt-2' : ''}`} role="status">
+                {limitNotice}
+                {isLimited && (
+                  <span aria-hidden="true">
+                    {' '}You can ask again in {formatWait(secondsLeft)}{limitReason === 'busy' ? `, or email ${profile.email}` : ''}.
+                  </span>
+                )}
+              </p>
               <p className="mt-2 text-[11px] leading-snug text-slate-400 dark:text-slate-500">
                 Answers are generated by Google Gemini from this site's content and may be inaccurate. Your questions are sent to Google.
               </p>
