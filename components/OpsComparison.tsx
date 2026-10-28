@@ -83,7 +83,7 @@ const item = {
 const OpsComparison: React.FC = () => {
     return (
         <section id="ops-comparison" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Technical Disciplines">
-            <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-white/75 dark:bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+            <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-white/75 dark:bg-slate-900/75 px-6 py-5 backdrop-blur-sm md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                 <h2 className="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-200 lg:sr-only">Technical Disciplines</h2>
             </div>
             <motion.div
@@ -105,13 +105,13 @@ const OpsComparison: React.FC = () => {
                             {discipline.icon}
                         </div>
                         <h3 className="text-lg font-bold text-slate-900 dark:text-white text-center mb-3">{discipline.title}</h3>
-                        <p className="text-slate-600 dark:text-slate-400 mb-5 text-sm text-center flex-grow">
+                        <p className="text-slate-600 dark:text-slate-400 mb-5 text-sm text-center grow">
                             {discipline.description}
                         </p>
                         <ul className="space-y-2">
                             {discipline.principles.map(principle => (
                                 <li key={principle} className="flex items-start gap-2">
-                                    <svg className="w-4 h-4 text-sky-500 dark:text-sky-300 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                                    <svg className="w-4 h-4 text-sky-500 dark:text-sky-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
                                     <span className="text-sm">{principle}</span>
                                 </li>
                             ))}
