@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GitHubIcon, LinkedInIcon, EmailIcon } from './Icons';
+import { GitHubIcon, LinkedInIcon, EmailIcon, ResumeIcon } from './Icons';
 import ThemeToggle from './ThemeToggle';
 import { AnimatePresence, motion } from 'framer-motion';
 import { profile } from '../data/profile';
@@ -130,6 +130,11 @@ const Hero: React.FC = () => {
             <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}>
               <span className="sr-only">Email</span>
               <EmailIcon />
+            </a>
+          </li>
+          <li className="mr-5 text-xs shrink-0">
+            <a className="block hover:text-slate-900 dark:hover:text-slate-200" href="/resume" aria-label="Résumé" title="Résumé">
+              <ResumeIcon />
             </a>
           </li>
         </ul>

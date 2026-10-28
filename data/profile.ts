@@ -1,5 +1,6 @@
-// Single source for the site's content. The page renders it, and the chat
-// assistant (netlify/functions/chat.ts) answers questions from it.
+// Single source for the site's content. The page and the résumé (/resume) render
+// it, and the chat assistant (netlify/functions/chat.ts) answers questions from it.
+// After editing, run `npm run resume:pdf` to refresh the résumé's PDF download.
 
 export const profile = {
   name: 'Oguz Akkas',
@@ -9,6 +10,8 @@ export const profile = {
   github: 'https://github.com/oakkas',
   linkedin: 'https://www.linkedin.com/in/oguz-akkas-ph-d-2947a836/',
   photo: '/assets/oguz.webp',
+  // The summary at the top of the printable résumé (/resume)
+  summary: 'ML and data engineer who turns messy data into ML and LLM systems that run in production. Builds OCR and LLM extraction pipelines, data platforms, and MLOps tooling for healthcare, insurance, and software teams, and leads teams from design through delivery. Earlier published computer vision research at UW–Madison.',
   about: [
     "As an experienced ML & Data Engineer, I have a proven record of designing and deploying machine learning models and feature engineering pipelines for production environments. My expertise spans Natural Language Processing (NLP), distributed data processing with Spark, and comprehensive model lifecycle management using MLFlow.",
     "I hold advanced degrees in Industrial Engineering from the University of Wisconsin-Madison and have a track record of delivering scalable, real-time AI solutions across diverse sectors. I thrive on architecting robust systems and leading teams to turn complex technical challenges into impactful products.",
@@ -173,7 +176,7 @@ export const publications = [
 export const projects: { title: string; description: string; technologies: string[]; link?: string }[] = [
   {
     title: 'Clinical Document Extraction Demo',
-    description: 'The live demo on this page: Gemini reads synthetic lab reports and clinical notes and returns structured data, scored field by field against an answer key.',
+    description: 'A live demo where Gemini reads synthetic lab reports and clinical notes and returns structured data, scored field by field against an answer key.',
     technologies: ['Gemini', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Netlify Functions'],
     link: '#live-demo',
   },

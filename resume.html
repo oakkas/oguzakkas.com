@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oguz Akkas | Résumé</title>
+    <meta name="description" content="Résumé of Oguz Akkas, ML and data engineer: LLM pipelines, NLP, data platforms, and MLOps. Print it or download the PDF." />
+    <link rel="canonical" href="https://oguzakkas.com/resume" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f1f5f9" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#020617" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://oguzakkas.com/resume" />
+    <meta property="og:title" content="Oguz Akkas | Résumé" />
+    <meta property="og:description" content="ML and data engineer: LLM pipelines, NLP, data platforms, and MLOps." />
+    <meta property="og:image" content="https://oguzakkas.com/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      @page { size: letter; margin: 0.5in 0.6in; }
+    </style>
+    <script>
+      // Follow the theme chosen on the main page, without a flash
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-100 dark:bg-slate-950 print:bg-white">
+    <div id="root"></div>
+    <script type="module" src="/resume.tsx"></script>
+  </body>
+</html>

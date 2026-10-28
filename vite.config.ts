@@ -9,6 +9,15 @@ export default defineConfig({
     host: '0.0.0.0',
   },
   plugins: [react(), tailwindcss()],
+  build: {
+    rollupOptions: {
+      // The main page, and the printable résumé served at /resume
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        resume: path.resolve(__dirname, 'resume.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),

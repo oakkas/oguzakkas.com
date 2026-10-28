@@ -60,7 +60,10 @@ const Experience: React.FC = () => {
             ))}
           </ol>
         </details>
-        <div className="mt-12">
+        <div className="mt-12 flex flex-col items-start gap-4">
+            <a className="inline-flex items-center font-medium leading-tight text-slate-900 dark:text-slate-200 group" href="/resume">
+                <span className="border-b border-transparent pb-px transition group-hover:border-sky-500 dark:group-hover:border-sky-300 motion-reduce:transition-none">View printable résumé</span>
+            </a>
             <a className="inline-flex items-center font-medium leading-tight text-slate-900 dark:text-slate-200 group" href={profile.linkedin} target="_blank" rel="noreferrer noopener" aria-label="View full work history on LinkedIn (opens in a new tab)">
                 <span>
                 <span className="border-b border-transparent pb-px transition group-hover:border-sky-500 dark:group-hover:border-sky-300 motion-reduce:transition-none">View full work history on </span>

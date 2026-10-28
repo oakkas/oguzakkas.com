@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "check:chat": "node scripts/check-chat.mjs",
     "demo:save": "node scripts/save-demo-runs.mjs",
-    "images:render": "./scripts/render-images.sh"
+    "images:render": "./scripts/render-images.sh",
+    "resume:pdf": "node scripts/render-resume.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.24",

@@ -7,6 +7,9 @@ import { ChatIcon } from './Icons';
 
 const current = experiences[0];
 
+const textLink =
+  'text-sm font-semibold text-slate-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-sky-700 hover:decoration-sky-500 dark:text-slate-300 dark:decoration-slate-600 dark:hover:text-sky-300';
+
 const highlights = [
   { value: 'Since 2012', label: 'building ML and computer vision systems' },
   { value: String(publications.length), label: 'peer-reviewed papers' },
@@ -63,12 +66,10 @@ const About: React.FC = () => {
             >
               <ChatIcon /> Ask AI about me
             </button>
-            <a
-              href={`mailto:${profile.email}`}
-              className="text-sm font-semibold text-slate-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-sky-700 hover:decoration-sky-500 dark:text-slate-300 dark:decoration-slate-600 dark:hover:text-sky-300"
-            >
-              Email me
-            </a>
+            <span className="flex items-center gap-4">
+              <a href={`mailto:${profile.email}`} className={textLink}>Email me</a>
+              <a href="/resume" className={textLink}>Résumé</a>
+            </span>
           </div>
           <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
             Previously at Verana Health, Wind River, Pinnacol Assurance, and CDC / NIOSH.
