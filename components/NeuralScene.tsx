@@ -3,8 +3,9 @@ import React, { useEffect, useRef } from 'react';
 // A slowly turning 3D neural network drawn on a plain 2D canvas (no WebGL library).
 // Its five layers are the stages from "How I work", and pulses of data flow through
 // them from left to right. Pauses when off screen; draws one still frame for
-// visitors who prefer reduced motion. With a `focus` layer, the camera glides to
-// that layer and lights it while the rest of the network dims.
+// visitors who prefer reduced motion. With a `focus` layer, the camera turns
+// slightly toward that layer and lights it while the rest of the network dims;
+// the network stays centred and level so the whole pipeline remains in view.
 
 const LAYERS = [
   { label: 'Ingest', count: 7 },
@@ -116,9 +117,9 @@ const NeuralScene: React.FC<{ className?: string; focus?: number | null }> = ({ 
       const target = focusRef.current;
       const k = Math.min(1, dt * 3.5);
       view.mix += ((target === null ? 0 : 1) - view.mix) * k;
-      view.pan += ((target === null ? 0 : -layerX(target) * 0.6) - view.pan) * k;
-      view.zoom += ((target === null ? 1 : 1.18) - view.zoom) * k;
-      view.yaw += ((target === null ? 0 : (target - (LAYERS.length - 1) / 2) * 0.12) - view.yaw) * k;
+      view.pan += ((target === null ? 0 : -layerX(target) * 0.2) - view.pan) * k;
+      view.zoom += ((target === null ? 1 : 1.06) - view.zoom) * k;
+      view.yaw += ((target === null ? 0 : (target - (LAYERS.length - 1) / 2) * 0.08) - view.yaw) * k;
       view.glow.forEach((glow, l) => { view.glow[l] = glow + ((l === target ? 1 : 0) - glow) * k; });
     };
     // 1 for the focus layer (or every layer without a focus), down to 0.3 for the rest
@@ -141,8 +142,10 @@ const NeuralScene: React.FC<{ className?: string; focus?: number | null }> = ({ 
     const draw = () => {
       if (!width || !height) return;
       ctx.clearRect(0, 0, width, height);
-      const angleY = Math.sin(time * 0.22) * 0.55 * (1 - 0.6 * view.mix) + view.yaw + pointer.x * 0.45;
-      const angleX = 0.32 + Math.sin(time * 0.17) * 0.1 + pointer.y * 0.25;
+      // Focus mode calms the sway and the pointer tilt, which otherwise swing the network off-centre
+      const calm = 1 - 0.75 * view.mix;
+      const angleY = Math.sin(time * 0.22) * 0.55 * calm + view.yaw + pointer.x * 0.45 * calm;
+      const angleX = 0.32 + Math.sin(time * 0.17) * 0.1 * calm + pointer.y * 0.25 * calm;
       const cosY = Math.cos(angleY), sinY = Math.sin(angleY), cosX = Math.cos(angleX), sinX = Math.sin(angleX);
       nodes.forEach((node, i) => project(node, cosY, sinY, cosX, sinX, projected[i]));
 

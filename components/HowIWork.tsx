@@ -42,9 +42,11 @@ const stages = [
 ];
 
 // The scroll story needs room and motion: below 1280px wide the stage text
-// wraps too much to stay put. Narrower or shorter screens and reduced motion
-// get the tabs instead.
-const STORY_QUERY = '(min-width: 1280px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)';
+// wraps too much to stay put, and below 760px tall the pinned stage doesn't
+// fit. Smaller screens and reduced motion get the tabs instead.
+const STORY_QUERY = '(min-width: 1280px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)';
+
+const INTRO = 'How I take machine learning systems from raw data to production.';
 
 const useStoryMode = () => {
   const [enabled, setEnabled] = useState(() => window.matchMedia(STORY_QUERY).matches);
@@ -110,8 +112,10 @@ const StageStory: React.FC = () => {
 
   return (
     <div ref={runwayRef} className="relative" style={{ height: `calc(100vh + ${stages.length * STAGE_SCROLL_VH}vh)` }}>
-      <div className="sticky top-0 flex h-screen items-center py-12">
-        <div className="grid w-full grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-10">
+      {/* Pinned from the top with the intro inside, so no gap opens above it */}
+      <div className="sticky top-0 flex h-screen flex-col pb-10 pt-12">
+        <p className="mb-8 max-w-2xl text-lg text-slate-600 dark:text-slate-400">{INTRO} Scroll through the five stages, or pick one.</p>
+        <div className="grid min-h-0 w-full flex-1 grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-start gap-10">
           <div>
             <ol className="space-y-0.5" aria-label="Stages of an ML system">
               {stages.map((s, index) => {
@@ -141,7 +145,7 @@ const StageStory: React.FC = () => {
               })}
             </ol>
 
-            <div className="relative mt-8 min-h-[23rem]" aria-live="polite">
+            <div className="relative mt-6 min-h-[23rem]" aria-live="polite">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={stage.title}
@@ -162,7 +166,7 @@ const StageStory: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative h-[min(62vh,34rem)] overflow-hidden rounded-3xl border border-slate-200 bg-linear-to-br from-white via-slate-50 to-sky-50 shadow-sm dark:border-slate-700/80 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
+          <div className="relative h-full max-h-[35rem] overflow-hidden rounded-3xl border border-slate-200 bg-linear-to-br from-white via-slate-50 to-sky-50 shadow-sm dark:border-slate-700/80 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
             <NeuralScene focus={active} />
           </div>
         </div>
@@ -220,11 +224,14 @@ const HowIWork: React.FC = () => {
       <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-white/75 dark:bg-slate-900/75 px-6 py-5 backdrop-blur-sm md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
         <h2 className="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-200 lg:sr-only">How I work</h2>
       </div>
-      <p className="mb-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
-        How I take machine learning systems from raw data to production.{' '}
-        {story ? 'Scroll through the five stages, or pick one.' : "Pick a stage to see what I've built there."}
-      </p>
-      {story ? <StageStory /> : <StageTabs />}
+      {story ? (
+        <StageStory />
+      ) : (
+        <>
+          <p className="mb-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400">{INTRO} Pick a stage to see what I've built there.</p>
+          <StageTabs />
+        </>
+      )}
     </section>
   );
 };
