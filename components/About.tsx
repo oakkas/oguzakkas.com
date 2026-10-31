@@ -71,7 +71,7 @@ const About: React.FC = () => {
             <motion.div variants={reveal} className="mt-7 flex flex-wrap items-center gap-3">
               <a
                 href="#live-demo"
-                className="inline-flex items-center rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500"
+                className="inline-flex items-center rounded-full bg-sky-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-800"
               >
                 Try the live demo
               </a>

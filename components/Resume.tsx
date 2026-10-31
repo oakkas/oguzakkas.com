@@ -59,7 +59,7 @@ const Resume: React.FC = () => {
           >
             Print
           </button>
-          <a href={RESUME_PDF} download="Oguz-Akkas-Resume.pdf" className="rounded-full bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500">
+          <a href={RESUME_PDF} download="Oguz-Akkas-Resume.pdf" className="rounded-full bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-800">
             Download PDF
           </a>
         </div>
@@ -71,7 +71,7 @@ const Resume: React.FC = () => {
             <h1 className="text-[22pt] font-bold leading-none tracking-tight text-slate-900">{profile.name}</h1>
             <p className="mt-1.5 text-[11pt] font-medium text-sky-800">{profile.title}</p>
           </div>
-          <ul className="text-[8.5pt] leading-snug text-slate-600 sm:text-right">
+          <ul className="text-[8.5pt] leading-6 text-slate-600 sm:text-right print:leading-snug">
             {contacts.map(contact => (
               <li key={contact.href}>
                 <a href={contact.href} className="hover:text-sky-700">{contact.label}</a>
@@ -149,7 +149,7 @@ const Resume: React.FC = () => {
                   part === citationName ? <strong key={index} className="font-semibold text-slate-900">{part}</strong> : part
                 )}{' '}
                 ({pub.year}). {pub.title}. <i>{pub.venue}</i>.{' '}
-                <a href={pub.url} className="text-sky-800 hover:underline">{displayUrl(pub.url)}</a>
+                <a href={pub.url} className="text-sky-800 underline decoration-sky-300 underline-offset-2">{displayUrl(pub.url)}</a>
               </li>
             ))}
           </ol>

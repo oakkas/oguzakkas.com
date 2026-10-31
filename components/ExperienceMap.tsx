@@ -23,7 +23,7 @@ const areas: { id: AreaId; name: string; short: string; summary: string; dot: st
   {
     id: 'pipelines',
     name: 'Data pipelines',
-    short: 'Pipe­lines', // soft hyphen, so the narrow table header can break it
+    short: 'Pipelines',
     summary: 'ETL, extraction, and orchestration',
     dot: 'bg-orange-600',
     fill: 'fill-orange-600',

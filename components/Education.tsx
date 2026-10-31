@@ -18,7 +18,7 @@ const Education: React.FC = () => {
                 <span className="absolute -left-[27px] top-1.5 h-3 w-3 rounded-full border-2 border-sky-500 bg-white dark:bg-slate-900" aria-hidden="true"></span>
                 <p className="font-medium text-slate-900 dark:text-slate-200">
                   {item.degree}
-                  {item.note && <span className="ml-1 text-xs font-normal text-slate-500">({item.note.toLowerCase()})</span>}
+                  {item.note && <span className="ml-1 text-xs font-normal text-slate-500 dark:text-slate-400">({item.note.toLowerCase()})</span>}
                 </p>
                 <p className="text-sm">{item.school} · {item.year}</p>
               </li>

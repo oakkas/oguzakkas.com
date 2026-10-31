@@ -37,7 +37,7 @@ const Skills: React.FC = () => {
                     aria-pressed={selected === skill}
                     className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                       selected === skill
-                        ? 'bg-sky-600 text-white'
+                        ? 'bg-sky-700 text-white'
                         : 'bg-sky-400/10 text-sky-700 hover:bg-sky-400/25 dark:text-sky-300'
                     }`}
                   >
@@ -62,12 +62,12 @@ const Skills: React.FC = () => {
               {roles.map(role => (
                 <li key={`${role.company}-${role.date}`}>
                   <span className="font-medium text-slate-800 dark:text-slate-200">{role.title}</span> · {role.company}{' '}
-                  <span className="text-xs text-slate-500">({role.date.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase())})</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">({role.date.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase())})</span>
                 </li>
               ))}
               {relatedProjects.map(project => (
                 <li key={project.title}>
-                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Project</span>{' '}
+                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Project</span>{' '}
                   <span className="font-medium text-slate-800 dark:text-slate-200">{project.title}</span>
                 </li>
               ))}

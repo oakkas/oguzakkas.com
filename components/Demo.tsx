@@ -187,7 +187,7 @@ const DemoContent: React.FC = () => {
               <button
                 onClick={runLive}
                 disabled={isRunning || isBlocked}
-                className="rounded-full bg-sky-600 px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-full bg-sky-700 px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isRunning ? 'Reading the document…' : isBlocked ? `Run again in ${secondsLeft}s` : run ? 'Run it live again' : 'Run it live'}
               </button>
@@ -291,7 +291,7 @@ const Demo: React.FC = () => {
           <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
             <a
               href={DEMO_HASH}
-              className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500"
+              className="inline-flex items-center gap-2 rounded-full bg-sky-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-800"
             >
               Open the live demo <span aria-hidden="true">→</span>
             </a>
@@ -307,7 +307,7 @@ const Demo: React.FC = () => {
           {demoSamples.map((s, index) => (
             <img
               key={s.id}
-              src={s.thumbnail}
+              src={s.card}
               alt=""
               loading="lazy"
               className={`absolute top-2 h-36 w-28 rounded-md border border-slate-200 object-cover object-top shadow-lg transition-transform duration-300 dark:border-slate-600 ${

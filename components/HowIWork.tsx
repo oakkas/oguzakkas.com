@@ -128,7 +128,7 @@ const StageStory: React.FC = () => {
                       onClick={() => goTo(index)}
                       className="group flex w-full items-center gap-3 rounded-md py-1.5 text-left"
                     >
-                      <span className="w-5 text-xs font-semibold tabular-nums text-slate-400 dark:text-slate-500">0{index + 1}</span>
+                      <span className="w-5 text-xs font-semibold tabular-nums text-slate-500 dark:text-slate-400">0{index + 1}</span>
                       <span className="relative h-1 w-10 shrink-0 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700" aria-hidden="true">
                         <span className="absolute inset-y-0 left-0 rounded-full bg-sky-500" style={{ width: `${fill * 100}%` }}></span>
                       </span>

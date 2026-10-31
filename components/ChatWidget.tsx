@@ -178,7 +178,7 @@ const ChatWidget: React.FC = () => {
                   <p
                     className={`max-w-[85%] whitespace-pre-wrap rounded-lg px-3 py-2 ${
                       message.role === 'user'
-                        ? 'bg-sky-600 text-white'
+                        ? 'bg-sky-700 text-white'
                         : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200'
                     }`}
                   >
@@ -210,7 +210,7 @@ const ChatWidget: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isLoading || isLimited || !input.trim()}
-                  className="flex min-w-11 items-center justify-center rounded-md bg-sky-600 px-3 text-white transition-colors hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex min-w-11 items-center justify-center rounded-md bg-sky-700 px-3 text-white transition-colors hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label={isLimited ? `Send question (available in ${formatWait(secondsLeft)})` : 'Send question'}
                 >
                   {isLimited ? <span className="text-xs font-medium tabular-nums">{formatWait(secondsLeft)}</span> : <SendIcon />}
@@ -234,7 +234,7 @@ const ChatWidget: React.FC = () => {
 
       <button
         onClick={() => setIsOpen(open => !open)}
-        className="flex items-center gap-2 rounded-full bg-sky-600 px-4 py-3 text-sm font-medium text-white shadow-lg transition-colors hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
+        className="flex items-center gap-2 rounded-full bg-sky-700 px-4 py-3 text-sm font-medium text-white shadow-lg transition-colors hover:bg-sky-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
         aria-expanded={isOpen}
         aria-controls="chat-panel"
       >

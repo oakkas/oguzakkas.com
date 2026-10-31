@@ -96,7 +96,7 @@ const Hero: React.FC = () => {
               <li key={link.id}>
                 <a className="group flex items-center py-2" href={`#${link.id}`}>
                   <span className={`nav-indicator mr-4 h-px w-8 bg-slate-400 dark:bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-900 dark:group-hover:bg-slate-200 motion-reduce:transition-none ${activeSection === link.id ? 'w-16 bg-slate-900! dark:bg-white!' : ''}`}></span>
-                  <span className={`nav-text text-xs font-bold uppercase tracking-widest transition-colors group-hover:text-slate-900 dark:group-hover:text-slate-200 ${activeSection === link.id ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>{link.name}</span>
+                  <span className={`nav-text text-xs font-bold uppercase tracking-widest transition-colors group-hover:text-slate-900 dark:group-hover:text-slate-200 ${activeSection === link.id ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>{link.name}</span>
                 </a>
               </li>
             ))}

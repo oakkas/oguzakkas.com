@@ -195,7 +195,7 @@ const NeuralScene: React.FC<{ className?: string; focus?: number | null }> = ({ 
         const y = Math.max(...members.map(p => p.y)) + 16;
         const depth = members.reduce((sum, p) => sum + p.depth, 0) / members.length;
         const lit = view.mix * view.glow[l];
-        ctx.font = `${lit > 0.5 ? 700 : 600} ${(10 + 3 * lit).toFixed(1)}px Inter, system-ui, sans-serif`;
+        ctx.font = `${lit > 0.5 ? 700 : 600} ${(10 + 3 * lit).toFixed(1)}px 'Inter Variable', Inter, system-ui, sans-serif`;
         ctx.fillStyle = `rgb(${lit > 0.5 ? palette.node : palette.label})`;
         ctx.globalAlpha = (0.6 + 0.35 * (1 - depth)) * weight(l);
         ctx.fillText(layer.label.toUpperCase(), x, y);

@@ -7,13 +7,13 @@ const ExperienceCard: React.FC<{ experience: typeof experiences[0] }> = ({ exper
     <li className="mb-12">
       <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:opacity-100! lg:group-hover/list:opacity-50">
         <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-100/50 dark:lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
-        <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label={experience.date}>{experience.date}</header>
+        <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2 dark:text-slate-400" aria-label={experience.date}>{experience.date}</header>
         <div className="z-10 sm:col-span-6">
           <h3 className="font-medium leading-snug text-slate-200">
             <div>
-              <a className="inline-flex items-baseline font-medium leading-tight text-slate-900 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-300 focus-visible:text-sky-500 dark:focus-visible:text-sky-300 group/link text-base" href={experience.link} target="_blank" rel="noreferrer noopener" aria-label={`${experience.title} at ${experience.company} (opens in a new tab)`}>
+              <a className="inline-flex items-baseline font-medium leading-tight text-slate-900 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-300 focus-visible:text-sky-500 dark:focus-visible:text-sky-300 group/link text-base" href={experience.link} target="_blank" rel="noreferrer noopener">
                 <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-sm md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                <span>{experience.title} · <span className="inline-block">{experience.company}</span></span>
+                <span>{experience.title} · <span className="inline-block">{experience.company}</span><span className="sr-only"> (opens in a new tab)</span></span>
               </a>
             </div>
           </h3>
@@ -46,12 +46,12 @@ const Experience: React.FC = () => {
         <details className="group/earlier rounded-lg border border-slate-200 bg-white/60 dark:border-slate-700 dark:bg-slate-800/40">
           <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-medium text-slate-900 dark:text-slate-200 [&::-webkit-details-marker]:hidden">
             <span>Earlier roles, 2012 – 2019</span>
-            <span className="text-sm text-slate-500 transition-transform group-open/earlier:rotate-180" aria-hidden="true">▾</span>
+            <span className="text-sm text-slate-500 dark:text-slate-400 transition-transform group-open/earlier:rotate-180" aria-hidden="true">▾</span>
           </summary>
           <ol className="space-y-5 border-t border-slate-200 px-4 py-4 dark:border-slate-700">
             {earlierExperiences.map(role => (
               <li key={`${role.company}-${role.date}`} className="sm:grid sm:grid-cols-8 sm:gap-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2 sm:mt-0.5">{role.date}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2 sm:mt-0.5 dark:text-slate-400">{role.date}</p>
                 <div className="sm:col-span-6">
                   <h3 className="font-medium text-slate-900 dark:text-slate-200">{role.title} · {role.company}</h3>
                   <p className="mt-1 text-sm leading-normal">{role.description}</p>
