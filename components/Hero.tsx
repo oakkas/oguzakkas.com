@@ -56,7 +56,7 @@ const Hero: React.FC = () => {
           <span className="shrink-0 rounded-full bg-linear-to-br from-sky-500 to-emerald-400 p-[3px] shadow-lg shadow-sky-500/20">
             <img src={profile.photo} alt="" width={64} height={64} className="h-16 w-16 rounded-full border-2 border-white object-cover dark:border-slate-900" />
           </span>
-          <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-4xl xl:text-6xl">
+          <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-4xl xl:text-[3.5rem]/none 2xl:text-6xl">
             {firstName}{' '}
             <span className="bg-linear-to-r from-sky-600 to-emerald-500 bg-clip-text text-transparent dark:from-sky-400 dark:to-emerald-400">{lastName}</span>
           </h1>
