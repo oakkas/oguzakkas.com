@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { profile, experiences, publications } from '../data/profile';
 import NeuralScene from './NeuralScene';
+import ParticleScene from './ParticleScene';
 import { OPEN_CHAT_EVENT } from './ChatWidget';
 import { ChatIcon } from './Icons';
 
@@ -28,6 +29,11 @@ const highlights = [
 ];
 
 const About: React.FC = () => {
+  // The particle network settles into this box; without WebGL the 2D network is drawn there instead
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [webgl, setWebgl] = useState(true);
+  const fallBack = useCallback(() => setWebgl(false), []);
+
   return (
     <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="About me">
       <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-white/75 dark:bg-slate-900/75 px-6 py-5 backdrop-blur-sm md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
@@ -40,6 +46,11 @@ const About: React.FC = () => {
         animate="show"
         className="@container relative mb-12 overflow-hidden rounded-3xl border border-slate-200 bg-linear-to-br from-white via-slate-50 to-sky-50 shadow-sm dark:border-slate-700/80 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800"
       >
+        {webgl && (
+          <motion.div variants={fadeIn} className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <ParticleScene anchorRef={sceneRef} onFail={fallBack} />
+          </motion.div>
+        )}
         <div className="relative z-10 px-6 pt-6 sm:px-8 sm:pt-8 md:px-10 md:pt-10 lg:px-12 lg:pt-12">
           <motion.p variants={reveal} className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
             <span className="relative flex h-2 w-2" aria-hidden="true">
@@ -91,9 +102,13 @@ const About: React.FC = () => {
             </motion.p>
           </div>
 
-          <motion.div variants={fadeIn} className="relative -mt-4 h-52 xl:mt-0 xl:h-auto xl:min-h-64">
-            <NeuralScene />
-            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/5 bg-linear-to-r from-slate-50 to-transparent xl:block dark:from-slate-900" aria-hidden="true"></div>
+          <motion.div ref={sceneRef} variants={fadeIn} className="relative -mt-4 h-52 xl:mt-0 xl:h-auto xl:min-h-64">
+            {!webgl && (
+              <>
+                <NeuralScene />
+                <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/5 bg-linear-to-r from-slate-50 to-transparent xl:block dark:from-slate-900" aria-hidden="true"></div>
+              </>
+            )}
           </motion.div>
         </div>
 

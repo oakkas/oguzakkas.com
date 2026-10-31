@@ -165,7 +165,7 @@ const ChatWidget: React.FC = () => {
                         key={suggestion}
                         onClick={() => send(suggestion)}
                         disabled={isLoading || isLimited}
-                        className="rounded-full bg-sky-400/10 px-3 py-1 text-left text-xs font-medium text-sky-600 transition-colors hover:bg-sky-400/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-sky-300"
+                        className="rounded-full bg-sky-400/10 px-3 py-1 text-left text-xs font-medium text-sky-700 transition-colors hover:bg-sky-400/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-sky-300"
                       >
                         {suggestion}
                       </button>

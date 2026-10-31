@@ -62,7 +62,7 @@ const useStoryMode = () => {
 const ToolList: React.FC<{ tools: string[] }> = ({ tools }) => (
   <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Tools">
     {tools.map(tool => (
-      <li key={tool} className="rounded-full bg-sky-400/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">{tool}</li>
+      <li key={tool} className="rounded-full bg-sky-400/10 px-3 py-1 text-xs font-medium text-sky-700 dark:text-sky-300">{tool}</li>
     ))}
   </ul>
 );
@@ -196,7 +196,7 @@ const StageTabs: React.FC = () => {
             }`}
           >
             <span className="hidden h-16 items-center justify-center sm:flex [&>svg]:h-14 [&>svg]:w-14">{s.icon}</span>
-            <span className="text-xs font-bold text-sky-600 dark:text-sky-400">Step {index + 1}</span>
+            <span className="text-xs font-bold text-sky-700 dark:text-sky-400">Step {index + 1}</span>
             <span className="text-sm font-bold leading-tight text-slate-900 dark:text-white">{s.title}</span>
           </button>
         ))}

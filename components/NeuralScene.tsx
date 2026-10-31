@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from 'react';
 // slightly toward that layer and lights it while the rest of the network dims;
 // the network stays centred and level so the whole pipeline remains in view.
 
-const LAYERS = [
+export const LAYERS = [
   { label: 'Ingest', count: 7 },
   { label: 'Extract', count: 10 },
   { label: 'Train', count: 12 },
@@ -23,7 +23,7 @@ type Node = Point & { layer: number; flash: number };
 type Pulse = { edge: number; progress: number; speed: number };
 type Palette = { edge: string; node: string; pulse: string; label: string; glowNode: HTMLCanvasElement; glowPulse: HTMLCanvasElement };
 
-const layerX = (layer: number) => (layer - (LAYERS.length - 1) / 2) * LAYER_SPACING;
+export const layerX = (layer: number) => (layer - (LAYERS.length - 1) / 2) * LAYER_SPACING;
 
 // Seeded random numbers, so the network has the same shape on every visit
 const seededRandom = (seed: number) => () => {
@@ -31,7 +31,7 @@ const seededRandom = (seed: number) => () => {
   return (seed - 1) / 2147483646;
 };
 
-const buildNetwork = () => {
+export const buildNetwork = () => {
   const rand = seededRandom(7);
   const nodes: Node[] = [];
   const layerStart: number[] = [];

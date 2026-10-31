@@ -137,7 +137,7 @@ const DemoContent: React.FC = () => {
 
   return (
       <div className="p-5 pt-6 md:p-8">
-        <p className="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400">Live demo</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-sky-700 dark:text-sky-400">Live demo</p>
         <h3 id="live-demo-title" className="mt-1 pr-10 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Clinical documents → structured data</h3>
         <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-400">
           A small re-creation of the OCR and LLM extraction pipelines I build. Gemini reads a document image and returns
@@ -278,7 +278,7 @@ const Demo: React.FC = () => {
 
       <div className="group flex flex-col gap-6 overflow-hidden rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm sm:flex-row sm:items-center md:p-8 dark:border-slate-700 dark:bg-slate-800/60">
         <div className="flex-1">
-          <p className="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400">Live demo</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-sky-700 dark:text-sky-400">Live demo</p>
           <h3 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Clinical documents → structured data</h3>
           <p className="mt-2 text-slate-600 dark:text-slate-400">
             Watch Gemini read a synthetic lab report or clinical note, then see every extracted field checked against an answer key.
