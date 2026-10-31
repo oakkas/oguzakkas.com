@@ -1,5 +1,5 @@
 import type { Config } from '@netlify/functions';
-import { profile, extraFacts, skillsData, experiences, earlierExperiences, education, publications, projects } from '../../data/profile.ts';
+import { profile, extraFacts, skillsData, experiences, earlierExperiences, education, publications, projects, testimonials } from '../../data/profile.ts';
 import { busyResponse, callGemini } from '../../lib/gemini.ts';
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
@@ -56,6 +56,9 @@ const buildSystemPrompt = () => {
     '',
     'Projects:',
     ...projects.map(p => `- ${p.title}: ${p.description} Technologies: ${p.technologies.join(', ')}.`),
+    '',
+    `Excerpts from LinkedIn recommendations by people who worked with ${profile.name}:`,
+    ...testimonials.map(t => `- ${t.name} (${t.headline}; ${t.relationship.toLowerCase()}, ${t.year}): "${t.quote}"`),
     '',
     'This website has a live demo section where visitors can watch Gemini extract structured data from synthetic lab reports and clinical notes.',
     'A printable résumé is at https://oguzakkas.com/resume, with a PDF download.',

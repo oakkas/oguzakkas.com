@@ -213,3 +213,43 @@ export const projects: { title: string; description: string; technologies: strin
     link: 'https://doi.org/10.1080/00140139.2017.1346208',
   },
 ];
+
+// Excerpts from LinkedIn recommendations, quoted word for word ("…" marks a cut).
+// Keep recommenders' contact details off the site.
+export const testimonials = [
+  {
+    quote: 'Oguz is a phenomenal ML Engineer – he is very experienced, thoughtful and hard working! He does a great job independently leading ML projects and we worked together to set up MLops infrastructure using Terraform for parsing TB → PB scale unstructured text and image data on AWS SageMaker.',
+    name: 'Joe Webb, PhD',
+    headline: 'CEO, Labtools.AI and Vitality Robotics',
+    relationship: 'Managed Oguz directly',
+    year: 2022,
+  },
+  {
+    quote: 'His proficiency in both machine learning and software engineering was quickly evident. Within a very short time, he was able to understand and then massively improve the efficiency of a complicated pipeline.',
+    name: 'Karen Smiley',
+    headline: 'AI leader and author of Everyday Ethical AI',
+    relationship: 'Managed Oguz directly',
+    year: 2024,
+  },
+  {
+    quote: 'As a leader, Oguz demonstrated unparalleled skills in managing multiple projects simultaneously. It was not uncommon for him to lead three to four projects concurrently, and he consistently delivered exceptional results across the board.',
+    name: 'Matthew Cintron',
+    headline: 'AI Director / Data Scientist',
+    relationship: 'Worked with Oguz on the same team',
+    year: 2024,
+  },
+  {
+    quote: 'Oguz has helped integrate many Amazon SageMaker components to support our ML effort and has demonstrated a strong understanding of the platform’s capabilities and limitations. Oguz has also worked on monitoring and automation to enable other teams to use our platform.',
+    name: 'Eric Lau',
+    headline: 'Data Scientist',
+    relationship: 'Worked with Oguz at Verana Health',
+    year: 2024,
+  },
+  {
+    quote: 'Curious and passionate about ML Ops, Oguz has been experimenting with cutting edge technologies… From prototypes to debugging and solving existing problems, Oguz would tackle the tasks at hand, with an eye towards automation and simplification.',
+    name: 'Yana Nikitina',
+    headline: 'Technology leader',
+    relationship: 'Managed Oguz directly',
+    year: 2024,
+  },
+];

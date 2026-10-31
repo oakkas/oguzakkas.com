@@ -7,6 +7,7 @@ import ExperienceMap from './components/ExperienceMap';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import Testimonials from './components/Testimonials';
 import HowIWork from './components/HowIWork';
 import Education from './components/Education';
 import Contact from './components/Contact';
@@ -27,6 +28,7 @@ const App: React.FC = () => {
               <Demo />
               <ExperienceMap />
               <Experience />
+              <Testimonials />
               <Projects />
               <HowIWork />
               <Skills />

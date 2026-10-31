@@ -14,6 +14,7 @@ const navLinks = [
   { id: 'demo', name: 'Demo' },
   { id: 'experience-map', name: 'Experience map' },
   { id: 'experience', name: 'Experience' },
+  { id: 'recommendations', name: 'Recommendations' },
   { id: 'projects', name: 'Projects' },
   { id: 'how-i-work', name: 'How I work' },
   { id: 'skills', name: 'Skills' },
