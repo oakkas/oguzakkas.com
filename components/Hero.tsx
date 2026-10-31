@@ -49,8 +49,6 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const subtitle = profile.title;
-
   return (
     <div className="flex flex-col h-full justify-between">
       <div>
@@ -58,27 +56,19 @@ const Hero: React.FC = () => {
           <span className="shrink-0 rounded-full bg-linear-to-br from-sky-500 to-emerald-400 p-[3px] shadow-lg shadow-sky-500/20">
             <img src={profile.photo} alt="" width={64} height={64} className="h-16 w-16 rounded-full border-2 border-white object-cover dark:border-slate-900" />
           </span>
-          <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-5xl xl:text-6xl">
+          <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-4xl xl:text-6xl">
             {firstName}{' '}
             <span className="bg-linear-to-r from-sky-600 to-emerald-500 bg-clip-text text-transparent dark:from-sky-400 dark:to-emerald-400">{lastName}</span>
           </h1>
         </div>
-        <h2 className="mt-4 text-xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-2xl h-8" aria-label={subtitle}>
-          {subtitle.split("").map((char, index) => (
-            <motion.span
-              aria-hidden="true"
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: 0.1,
-                delay: index * 0.05,
-              }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-4 text-xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-2xl"
+        >
+          {profile.title}
+        </motion.h2>
         <p className="mt-3 text-lg text-slate-600 dark:text-slate-400">
           <span className="sr-only">Building {focusAreas.join(', ')}</span>
           <span aria-hidden="true">
@@ -115,25 +105,25 @@ const Hero: React.FC = () => {
 
       <div className="flex items-center">
         <ul className="ml-1 mt-8 flex items-center" aria-label="Social media">
-          <li className="mr-5 text-xs shrink-0">
+          <li className="mr-5 text-xs shrink-0 lg:mr-3 xl:mr-5">
             <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={profile.github} target="_blank" rel="noreferrer noopener" aria-label="GitHub (opens in a new tab)">
               <span className="sr-only">GitHub</span>
               <GitHubIcon />
             </a>
           </li>
-          <li className="mr-5 text-xs shrink-0">
+          <li className="mr-5 text-xs shrink-0 lg:mr-3 xl:mr-5">
             <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={profile.linkedin} target="_blank" rel="noreferrer noopener" aria-label="LinkedIn (opens in a new tab)">
               <span className="sr-only">LinkedIn</span>
               <LinkedInIcon />
             </a>
           </li>
-          <li className="mr-5 text-xs shrink-0">
+          <li className="mr-5 text-xs shrink-0 lg:mr-3 xl:mr-5">
             <a className="block hover:text-slate-900 dark:hover:text-slate-200" href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}>
               <span className="sr-only">Email</span>
               <EmailIcon />
             </a>
           </li>
-          <li className="mr-5 text-xs shrink-0">
+          <li className="mr-5 text-xs shrink-0 lg:mr-3 xl:mr-5">
             <a className="block hover:text-slate-900 dark:hover:text-slate-200" href="/resume" aria-label="Résumé" title="Résumé">
               <ResumeIcon />
             </a>
