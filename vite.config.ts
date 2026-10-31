@@ -11,10 +11,11 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
-      // The main page, and the printable résumé served at /resume
+      // The main page, the printable résumé at /resume, and the demo write-up at /notes/live-demo
       input: {
         main: path.resolve(__dirname, 'index.html'),
         resume: path.resolve(__dirname, 'resume.html'),
+        notes: path.resolve(__dirname, 'notes/live-demo.html'),
       },
     },
   },

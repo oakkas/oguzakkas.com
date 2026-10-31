@@ -62,6 +62,7 @@ const buildSystemPrompt = () => {
     '',
     'This website has a live demo section where visitors can watch Gemini extract structured data from synthetic lab reports and clinical notes.',
     'A printable résumé is at https://oguzakkas.com/resume, with a PDF download.',
+    'A write-up of how the live demo and this chat assistant were built is at https://oguzakkas.com/notes/live-demo.',
   ];
   if (extraFacts.length > 0) {
     lines.push('', 'Other facts:', ...extraFacts.map(fact => `- ${fact}`));

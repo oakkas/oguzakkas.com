@@ -1,6 +1,6 @@
 // Synthetic documents for the extraction demo, with the answer key used to score
 // each run. The images are rendered from scripts/demo-samples/*.html by
-// scripts/render-demo-samples.sh. No real patient data is involved.
+// scripts/render-images.sh. No real patient data is involved.
 
 export type DemoTask = 'lab' | 'meds';
 
