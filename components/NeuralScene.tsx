@@ -3,7 +3,8 @@ import React, { useEffect, useRef } from 'react';
 // A slowly turning 3D neural network drawn on a plain 2D canvas (no WebGL library).
 // Its five layers are the stages from "How I work", and pulses of data flow through
 // them from left to right. Pauses when off screen; draws one still frame for
-// visitors who prefer reduced motion.
+// visitors who prefer reduced motion. With a `focus` layer, the camera glides to
+// that layer and lights it while the rest of the network dims.
 
 const LAYERS = [
   { label: 'Ingest', count: 7 },
@@ -17,9 +18,11 @@ const CAMERA_DISTANCE = 3.6;
 const MAX_PULSES = 36;
 
 type Point = { x: number; y: number; z: number };
-type Node = Point & { flash: number };
+type Node = Point & { layer: number; flash: number };
 type Pulse = { edge: number; progress: number; speed: number };
 type Palette = { edge: string; node: string; pulse: string; label: string; glowNode: HTMLCanvasElement; glowPulse: HTMLCanvasElement };
+
+const layerX = (layer: number) => (layer - (LAYERS.length - 1) / 2) * LAYER_SPACING;
 
 // Seeded random numbers, so the network has the same shape on every visit
 const seededRandom = (seed: number) => () => {
@@ -38,7 +41,7 @@ const buildNetwork = () => {
       // A golden-angle spiral spreads each layer's nodes evenly over a disc
       const r = radius * Math.sqrt((i + 0.5) / layer.count);
       const angle = i * 2.399963;
-      nodes.push({ x: (l - (LAYERS.length - 1) / 2) * LAYER_SPACING, y: r * Math.sin(angle), z: r * Math.cos(angle), flash: 0 });
+      nodes.push({ x: layerX(l), y: r * Math.sin(angle), z: r * Math.cos(angle), layer: l, flash: 0 });
     }
   });
 
@@ -78,8 +81,15 @@ const makePalette = (dark: boolean): Palette => {
   return { ...colors, glowNode: makeGlow(colors.node), glowPulse: makeGlow(colors.pulse) };
 };
 
-const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
+const NeuralScene: React.FC<{ className?: string; focus?: number | null }> = ({ className = '', focus = null }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const focusRef = useRef(focus);
+  const redrawRef = useRef<() => void>(undefined);
+
+  useEffect(() => {
+    focusRef.current = focus;
+    redrawRef.current?.();
+  }, [focus]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -100,13 +110,27 @@ const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
     const pulses: Pulse[] = [];
     const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
     const projected = nodes.map(() => ({ x: 0, y: 0, depth: 0, scale: 1 }));
+    // Camera and emphasis, eased toward the focus layer (mix 0 = no focus)
+    const view = { pan: 0, zoom: 1, yaw: 0, mix: 0, glow: LAYERS.map(() => 0) };
+    const settle = (dt: number) => {
+      const target = focusRef.current;
+      const k = Math.min(1, dt * 3.5);
+      view.mix += ((target === null ? 0 : 1) - view.mix) * k;
+      view.pan += ((target === null ? 0 : -layerX(target) * 0.6) - view.pan) * k;
+      view.zoom += ((target === null ? 1 : 1.18) - view.zoom) * k;
+      view.yaw += ((target === null ? 0 : (target - (LAYERS.length - 1) / 2) * 0.12) - view.yaw) * k;
+      view.glow.forEach((glow, l) => { view.glow[l] = glow + ((l === target ? 1 : 0) - glow) * k; });
+    };
+    // 1 for the focus layer (or every layer without a focus), down to 0.3 for the rest
+    const weight = (layer: number) => 1 - view.mix * (1 - view.glow[layer]) * 0.7;
 
     const project = (p: Point, cosY: number, sinY: number, cosX: number, sinX: number, out: { x: number; y: number; depth: number; scale: number }) => {
-      const x1 = p.x * cosY + p.z * sinY;
-      const z1 = -p.x * sinY + p.z * cosY;
+      const px = p.x + view.pan;
+      const x1 = px * cosY + p.z * sinY;
+      const z1 = -px * sinY + p.z * cosY;
       const y1 = p.y * cosX - z1 * sinX;
       const z2 = p.y * sinX + z1 * cosX;
-      const unit = Math.min(width / 5, height / 3.1);
+      const unit = Math.min(width / 5, height / 3.1) * view.zoom;
       out.scale = CAMERA_DISTANCE / (CAMERA_DISTANCE + z2);
       out.x = width / 2 + x1 * unit * out.scale;
       out.y = height / 2 + y1 * unit * out.scale;
@@ -117,7 +141,7 @@ const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
     const draw = () => {
       if (!width || !height) return;
       ctx.clearRect(0, 0, width, height);
-      const angleY = Math.sin(time * 0.22) * 0.55 + pointer.x * 0.45;
+      const angleY = Math.sin(time * 0.22) * 0.55 * (1 - 0.6 * view.mix) + view.yaw + pointer.x * 0.45;
       const angleX = 0.32 + Math.sin(time * 0.17) * 0.1 + pointer.y * 0.25;
       const cosY = Math.cos(angleY), sinY = Math.sin(angleY), cosX = Math.cos(angleX), sinX = Math.sin(angleX);
       nodes.forEach((node, i) => project(node, cosY, sinY, cosX, sinX, projected[i]));
@@ -125,7 +149,9 @@ const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
       ctx.lineWidth = 1;
       for (const edge of edges) {
         const a = projected[edge.from], b = projected[edge.to];
-        ctx.strokeStyle = `rgba(${palette.edge}, ${(0.08 + 0.22 * (1 - (a.depth + b.depth) / 2)).toFixed(3)})`;
+        const fromLayer = nodes[edge.from].layer, toLayer = nodes[edge.to].layer;
+        const emphasis = (weight(fromLayer) + weight(toLayer)) / 2 + 0.15 * view.mix * Math.max(view.glow[fromLayer], view.glow[toLayer]);
+        ctx.strokeStyle = `rgba(${palette.edge}, ${((0.08 + 0.22 * (1 - (a.depth + b.depth) / 2)) * emphasis).toFixed(3)})`;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -137,35 +163,38 @@ const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
         const x = a.x + (b.x - a.x) * pulse.progress;
         const y = a.y + (b.y - a.y) * pulse.progress;
         const size = 14 * (a.scale + (b.scale - a.scale) * pulse.progress);
-        ctx.globalAlpha = 0.9;
+        ctx.globalAlpha = 0.9 * Math.max(weight(nodes[edges[pulse.edge].from].layer), weight(nodes[edges[pulse.edge].to].layer));
         ctx.drawImage(palette.glowPulse, x - size / 2, y - size / 2, size, size);
       }
 
       const order = projected.map((_, i) => i).sort((i, j) => projected[j].depth - projected[i].depth);
       for (const i of order) {
         const p = projected[i];
-        const flash = nodes[i].flash;
-        if (flash > 0.01) {
-          const size = (18 + 22 * flash) * p.scale;
-          ctx.globalAlpha = flash * 0.9;
+        const { flash, layer } = nodes[i];
+        const lit = view.mix * view.glow[layer];
+        const glow = Math.max(flash * 0.9, lit * 0.45);
+        if (glow > 0.01) {
+          const size = (18 + 22 * Math.max(flash, lit * 0.5)) * p.scale;
+          ctx.globalAlpha = glow;
           ctx.drawImage(palette.glowNode, p.x - size / 2, p.y - size / 2, size, size);
         }
         ctx.globalAlpha = 1;
-        ctx.fillStyle = `rgba(${palette.node}, ${(0.45 + 0.55 * (1 - p.depth)).toFixed(3)})`;
+        ctx.fillStyle = `rgba(${palette.node}, ${((0.45 + 0.55 * (1 - p.depth)) * weight(layer)).toFixed(3)})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, (2.1 + 1.6 * flash) * p.scale, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, (2.1 + 1.6 * flash) * p.scale * (1 + 0.6 * lit), 0, Math.PI * 2);
         ctx.fill();
       }
 
-      ctx.font = '600 10px Inter, system-ui, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillStyle = `rgb(${palette.label})`;
       LAYERS.forEach((layer, l) => {
         const members = projected.slice(layerStart[l], layerStart[l] + layer.count);
         const x = members.reduce((sum, p) => sum + p.x, 0) / members.length;
         const y = Math.max(...members.map(p => p.y)) + 16;
         const depth = members.reduce((sum, p) => sum + p.depth, 0) / members.length;
-        ctx.globalAlpha = 0.6 + 0.35 * (1 - depth);
+        const lit = view.mix * view.glow[l];
+        ctx.font = `${lit > 0.5 ? 700 : 600} ${(10 + 3 * lit).toFixed(1)}px Inter, system-ui, sans-serif`;
+        ctx.fillStyle = `rgb(${lit > 0.5 ? palette.node : palette.label})`;
+        ctx.globalAlpha = (0.6 + 0.35 * (1 - depth)) * weight(l);
         ctx.fillText(layer.label.toUpperCase(), x, y);
       });
       ctx.globalAlpha = 1;
@@ -173,6 +202,7 @@ const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
 
     const update = (dt: number) => {
       time += dt;
+      settle(dt);
       pointer.x += (pointer.targetX - pointer.x) * Math.min(1, dt * 3);
       pointer.y += (pointer.targetY - pointer.y) * Math.min(1, dt * 3);
 
@@ -255,11 +285,19 @@ const NeuralScene: React.FC<{ className?: string }> = ({ className = '' }) => {
     window.addEventListener('pointermove', handlePointer);
     document.addEventListener('visibilitychange', handleVisibility);
 
+    // Focus changes animate inside the loop; when it isn't running, jump there
+    redrawRef.current = () => {
+      if (frame) return;
+      settle(Infinity);
+      draw();
+    };
+    settle(Infinity);
     resize();
     start();
 
     return () => {
       stop();
+      redrawRef.current = undefined;
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       themeObserver.disconnect();
