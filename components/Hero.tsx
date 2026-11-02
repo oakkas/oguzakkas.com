@@ -69,7 +69,12 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mt-4 text-xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-2xl"
         >
-          {profile.title}
+          {profile.title.split(' · ').map((line, index) => (
+            <span key={line} className="block">
+              {index > 0 && <span className="sr-only">, </span>}
+              {line}
+            </span>
+          ))}
         </motion.h2>
         <p className="mt-3 text-lg text-slate-600 lg:text-base xl:text-lg dark:text-slate-400">
           <span className="sr-only">Building {focusAreas.join(', ')}</span>

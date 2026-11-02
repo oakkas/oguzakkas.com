@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <div className="page-grain fixed inset-0 z-0 opacity-[0.06] dark:opacity-[0.09] pointer-events-none" aria-hidden="true"></div>
         <main className="container mx-auto max-w-screen-2xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-12 lg:py-0">
           <div className="lg:grid lg:grid-cols-4 lg:gap-12">
-            <div className="lg:sticky lg:top-0 lg:col-span-1 lg:flex lg:max-h-screen lg:flex-col lg:justify-between lg:overflow-y-auto lg:py-16">
+            <div className="lg:sticky lg:top-0 lg:col-span-1 lg:flex lg:max-h-screen lg:flex-col lg:justify-between lg:overflow-y-auto lg:py-16 [@media(max-height:780px)]:lg:py-8">
               <Hero />
             </div>
             <div className="pt-24 lg:col-span-3 lg:py-24">

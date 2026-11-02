@@ -4,7 +4,7 @@
 
 export const profile = {
   name: 'Oguz Akkas',
-  title: 'ML & Data Engineer',
+  title: 'Head of Data / AI · ML Engineer',
   tagline: 'I design and deploy scalable machine learning models and data pipelines, with expertise in NLP and distributed processing.',
   email: 'oakkas84@gmail.com',
   github: 'https://github.com/oakkas',
