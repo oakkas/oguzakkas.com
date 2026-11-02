@@ -1,5 +1,5 @@
 import type { Config } from '@netlify/functions';
-import { profile, extraFacts, skillsData, experiences, earlierExperiences, education, publications, projects, testimonials } from '../../data/profile.ts';
+import { profile, extraFacts, skillsData, experiences, earlierExperiences, leadership, education, publications, projects, testimonials } from '../../data/profile.ts';
 import { busyResponse, callGemini } from '../../lib/gemini.ts';
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
@@ -47,6 +47,9 @@ const buildSystemPrompt = () => {
     '',
     'Experience (most recent first):',
     ...[...experiences, ...earlierExperiences].map(e => `- ${e.date}: ${e.title} at ${e.company}. ${e.description} Technologies: ${e.technologies.join(', ')}.`),
+    '',
+    `How ${profile.name} leads:`,
+    ...leadership.map(l => `- ${l.title}: ${l.text}`),
     '',
     'Education:',
     ...education.map(e => `- ${e.degree}${e.note ? ` (${e.note.toLowerCase()})` : ''}, ${e.school}, ${e.year}`),

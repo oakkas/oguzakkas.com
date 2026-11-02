@@ -25,7 +25,7 @@ const fadeIn: Variants = {
 const highlights = [
   { value: 'Since 2012', label: 'building ML and computer vision systems' },
   { value: String(publications.length), label: 'peer-reviewed papers' },
-  { value: 'LLMs', label: 'in production in healthcare' },
+  { value: 'Head of Data / AI', label: 'built the team from the ground up' },
 ];
 
 const About: React.FC = () => {
@@ -116,7 +116,7 @@ const About: React.FC = () => {
           {highlights.map(item => (
             <div key={item.label} className="flex flex-col-reverse justify-end">
               <dt className="text-xs leading-snug text-slate-500 dark:text-slate-400">{item.label}</dt>
-              <dd className="whitespace-nowrap text-sm font-bold text-slate-900 sm:text-xl dark:text-white">{item.value}</dd>
+              <dd className="text-sm font-bold sm:whitespace-nowrap text-slate-900 sm:text-xl dark:text-white">{item.value}</dd>
             </div>
           ))}
         </motion.dl>

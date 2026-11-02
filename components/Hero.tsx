@@ -7,13 +7,14 @@ import { profile } from '../data/profile';
 const [firstName, ...otherNames] = profile.name.split(' ');
 const lastName = otherNames.join(' ');
 
-const focusAreas = ['LLM pipelines', 'NLP systems', 'data platforms', 'MLOps'];
+const focusAreas = ['LLM pipelines', 'NLP systems', 'data platforms', 'MLOps', 'data & AI teams'];
 
 const navLinks = [
   { id: 'about', name: 'About' },
   { id: 'demo', name: 'Demo' },
   { id: 'experience-map', name: 'Experience map' },
   { id: 'experience', name: 'Experience' },
+  { id: 'leadership', name: 'How I lead' },
   { id: 'recommendations', name: 'Recommendations' },
   { id: 'projects', name: 'Projects' },
   { id: 'how-i-work', name: 'How I work' },
@@ -70,7 +71,7 @@ const Hero: React.FC = () => {
         >
           {profile.title}
         </motion.h2>
-        <p className="mt-3 text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-3 text-lg text-slate-600 lg:text-base xl:text-lg dark:text-slate-400">
           <span className="sr-only">Building {focusAreas.join(', ')}</span>
           <span aria-hidden="true">
             Building{' '}

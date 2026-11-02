@@ -11,7 +11,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/oguz-akkas-ph-d-2947a836/',
   photo: '/assets/oguz.webp',
   // The summary at the top of the printable résumé (/resume)
-  summary: 'ML and data engineer who turns messy data into ML and LLM systems that run in production. Builds OCR and LLM extraction pipelines, data platforms, and MLOps tooling for healthcare, insurance, and software teams, and leads teams from design through delivery. Earlier published computer vision research at UW–Madison.',
+  summary: 'Staff software engineer and Head of Data / AI who built and leads a data & AI/ML team, and turns messy data into ML and LLM systems that run in production: OCR and LLM extraction pipelines, data platforms, and MLOps tooling for healthcare, insurance, and software teams. Earlier published computer vision research at UW–Madison.',
   about: [
     "As an experienced ML & Data Engineer, I have a proven record of designing and deploying machine learning models and feature engineering pipelines for production environments. My expertise spans Natural Language Processing (NLP), distributed data processing with Spark, and comprehensive model lifecycle management using MLFlow.",
     "I hold advanced degrees in Industrial Engineering from the University of Wisconsin-Madison and have a track record of delivering scalable, real-time AI solutions across diverse sectors. I thrive on architecting robust systems and leading teams to turn complex technical challenges into impactful products.",
@@ -54,19 +54,21 @@ export const skillsData = [
 export const experiences = [
   {
     date: 'APR 2024 — PRESENT',
-    title: 'Lead Data / ML Engineer',
+    title: 'Staff Software Engineer & Head of Data / AI',
     company: 'FlyteHealth',
-    description: 'Developed Flyte Bot, a conversational interface using Langchain, OpenAI, Gemini, and more. Engineered OCR and LLM-based data extraction pipelines. Built and maintained a Data Lake and Data Warehouse on S3/Redshift, and automated CI/CD processes with Terraform.',
+    description: "Built the data & AI/ML team from the ground up. Hire, manage, and lead its engineers; present plans and results to business and company leadership. Developed Flyte Bot, a conversational interface using Langchain, OpenAI, Gemini, and more. Engineered OCR and LLM-based data extraction pipelines. Built and maintained a Data Lake and Data Warehouse on S3/Redshift, and automated CI/CD processes with Terraform.",
     technologies: ['Langchain', 'OpenAI', 'Gemini', 'Anthropic', 'Bedrock', 'S3', 'Redshift', 'PostgreSQL', 'AWS Batch', 'Terraform'],
-    link: 'https://www.flytehealth.com/'
+    link: 'https://www.flytehealth.com/',
+    scope: { level: 4, note: 'Built the data & AI/ML team; hire and manage its engineers and present to leadership.' },
   },
   {
     date: 'OCT 2023 — MAR 2024',
     title: 'Senior Tech Lead',
     company: 'Verana Health',
-    description: "Redesigned a commercial production tool's data pipeline with custom LLMs and GPT-4, reducing processing time from weeks to hours. Led efforts in defining, architecting, and developing a machine learning platform and mentored junior engineers.",
+    description: "Led the team that migrated ML and data workloads to Databricks. Led efforts in defining, architecting, and developing a machine learning platform, and mentored junior engineers. Redesigned a commercial production tool's data pipeline with custom LLMs and GPT-4, reducing processing time from weeks to hours.",
     technologies: ['LLMs', 'GPT-4', 'MLOps', 'Databricks', 'PySpark', 'Airflow', 'AWS SageMaker', 'Terraform', 'Docker'],
-    link: 'https://www.veranahealth.com/'
+    link: 'https://www.veranahealth.com/',
+    scope: { level: 3, note: 'Led the team and its migration of ML and data to Databricks; mentored engineers.' },
   },
   {
     date: 'MAR 2022 — SEP 2023',
@@ -74,7 +76,8 @@ export const experiences = [
     company: 'Verana Health',
     description: 'Architected an ML platform where teams could experiment with, test, and deploy models. Built an automated data labeling pipeline with SageMaker Ground Truth, PyTorch and HuggingFace training templates, and a self-service deployment pipeline with automated checks, performance tests, and model monitoring.',
     technologies: ['AWS SageMaker', 'Ground Truth', 'Lambda', 'PyTorch', 'HuggingFace', 'Terraform', 'GitHub Actions', 'Airflow', 'Spark', 'Docker'],
-    link: 'https://www.veranahealth.com/'
+    link: 'https://www.veranahealth.com/',
+    scope: { level: 2, note: 'Architected the ML platform that other teams train and deploy on.' },
   },
   {
     date: 'APR 2021 — MAR 2022',
@@ -82,7 +85,8 @@ export const experiences = [
     company: 'Wind River',
     description: "Led the design, development, and integration of the data science platform. Contributed to ETL and data extraction processes designed for distributed and parallel efficiency, and wrangled data to build and deploy analytical models.",
     technologies: ['Python', 'ETL', 'Cloud Analytics', 'Data Science', 'ML Platform'],
-    link: 'https://www.windriver.com/'
+    link: 'https://www.windriver.com/',
+    scope: { level: 2, note: 'Led the design of the data science platform.' },
   },
    {
     date: 'SEP 2019 — APR 2021',
@@ -90,8 +94,32 @@ export const experiences = [
     company: 'Pinnacol Assurance',
     description: "Performed EDA and applied various machine learning and deep learning models. Created end-to-end machine learning pipelines using Sklearn, Airflow, PySpark, and Prefect. Automated workflows with Docker, Kubernetes, and Google Cloud products.",
     technologies: ['Python', 'sklearn', 'pandas', 'Airflow', 'PySpark', 'Prefect', 'Docker', 'Kubernetes', 'GCP'],
-    link: 'https://www.pinnacol.com/'
+    link: 'https://www.pinnacol.com/',
+    scope: { level: 1, note: 'Built my own models and end-to-end ML pipelines.' },
   }
+];
+
+// The "How I lead" section. Each role's `scope` above places it on this scale
+// (1 to 4) for the section's chart; the chat assistant reads the pillars too.
+export const scopeLevels = ['My own models', 'Platforms for other teams', 'Leading a team', 'Building a team'];
+
+export const leadership = [
+  {
+    title: 'Build the team',
+    text: "Built FlyteHealth's data & AI/ML team from the ground up and hired its engineers.",
+  },
+  {
+    title: 'Lead and grow people',
+    text: 'Manage and lead the engineers at FlyteHealth, and mentored junior engineers as a tech lead at Verana Health.',
+  },
+  {
+    title: 'Lead the big changes',
+    text: 'Led the team that migrated ML and data workloads to Databricks at Verana Health, and the design of platforms other teams build on.',
+  },
+  {
+    title: 'Connect with the business',
+    text: "As Head of Data / AI, present the team's plans and results to business stakeholders and company leadership.",
+  },
 ];
 
 // Roles before 2019, shown in a collapsed list. Source: Oguz's 2023 résumé.
